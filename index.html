@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Small Moss|来自中国的科幻爱好者！</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.jpg">
+</head>
+<body>
+<!-- 背景层：星云 + 旋转图 + 扫描线 -->
+<div class="background-layer">
+    <div class="nebula">
+        <div class="nebula-blob nebula-blue"></div>
+        <div class="nebula-blob nebula-purple"></div>
+        <div class="nebula-blob nebula-pink"></div>
+    </div>
+    <div class="stars"></div>
+    <div class="bg-image"></div>
+    <div class="scanlines"></div>
+    <div class="scanline-sweep scanline-sweep-blue"></div>
+    <div class="scanline-sweep scanline-sweep-purple"></div>
+</div>
+
+<!-- 点击粒子画布 -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- 顶部导航栏 -->
+<nav class="top-nav">
+    <div class="nav-inner">
+        <div class="nav-links">
+            <a href="https://github.com/smallmoss233" target="_blank" rel="noopener" class="nav-link">
+                <span class="nav-icon">⌘</span>
+                <span>GitHub</span>
+            </a>
+            <a href="https://space.bilibili.com/2100392650" target="_blank" rel="noopener" class="nav-link">
+                <span class="nav-icon">▶</span>
+                <span>B站</span>
+            </a>
+            <a href="https://modrinth.com/user/SmallMoss" target="_blank" rel="noopener" class="nav-link">
+                <span class="nav-icon">◆</span>
+                <span>Modrinth</span>
+            </a>
+            <a href="#" class="nav-link nav-link-disabled" title="Discord 服务器即将上线">
+                <span class="nav-icon">◆</span>
+                <span>Discord</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- ★ 左侧内容导航 -->
+<nav class="side-nav">
+    <a href="#home" class="side-link" data-target="home">
+        <span class="side-dot"></span>
+        <span class="side-label">首页</span>
+    </a>
+    <a href="#about" class="side-link" data-target="about">
+        <span class="side-dot"></span>
+        <span class="side-label">关于</span>
+    </a>
+    <a href="#works" class="side-link" data-target="works">
+        <span class="side-dot"></span>
+        <span class="side-label">作品</span>
+    </a>
+    <a href="#contact" class="side-link" data-target="contact">
+        <span class="side-dot"></span>
+        <span class="side-label">联系</span>
+    </a>
+</nav>
+
+<!-- 内容层 -->
+<main class="content">
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="title-stack fade-in-up">
+
+            <!-- ★ 新增：上方问候语 -->
+            <p class="hero-greeting">你好，我是</p>
+
+            <!-- 标题（实线 + 循环渐变） -->
+            <div class="pixel-title-wrap">
+                <svg class="pixel-title" viewBox="0 0 900 180"
+                     xmlns="http://www.w3.org/2000/svg"
+                     preserveAspectRatio="xMidYMid meet"
+                     role="img" aria-label="Small Moss">
+                    <defs>
+                        <linearGradient id="titleGradient"
+                                        gradientUnits="userSpaceOnUse"
+                                        x1="0" y1="0" x2="1800" y2="0">
+                            <stop offset="0%"   stop-color="#58a6ff"/>
+                            <stop offset="25%"  stop-color="#a855f7"/>
+                            <stop offset="50%"  stop-color="#58a6ff"/>
+                            <stop offset="75%"  stop-color="#a855f7"/>
+                            <stop offset="100%" stop-color="#58a6ff"/>
+
+                            <animateTransform attributeName="gradientTransform"
+                                              type="translate"
+                                              from="-900 0" to="0 0"
+                                              dur="6s" repeatCount="indefinite"/>
+                        </linearGradient>
+
+                        <filter id="titleGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <text x="450" y="130"
+                          text-anchor="middle"
+                          class="pixel-title-text"
+                          font-size="150"
+                          letter-spacing="10"
+                          fill="url(#titleGradient)"
+                          filter="url(#titleGlow)">SMALL MOSS</text>
+                </svg>
+            </div>
+
+            <!-- Gallifreyan 移到标题下方 -->
+            <div class="gallifreyan-line">
+                <span class="g-name">SMALL</span>
+                <span class="g-agency">MOSS</span>
+            </div>
+        </div>
+
+        <p class="subtitle fade-in-up">一位热衷于科幻作品的 Minecraft Mod 开发者 · 天体干预局组织的组长</p>
+
+        <div class="hero-tags fade-in-up">
+            <span class="hero-tag" data-tooltip="顺手学的">Java</span>
+            <span class="hero-tag" data-tooltip="为了 AIT 我来到了 Fabric，为了永恒的旅行我做了 DOCTOR M，现在我只会 Fabric 的开发…">Fabric</span>
+            <span class="hero-tag" data-tooltip="除了 Minecraft 的模组，别的我真的不会搞了">Minecraft Mod</span>
+            <span class="hero-tag" data-tooltip="这正是我现在热爱的">模组开发</span>
+            <span class="hero-tag" data-tooltip="讲个笑话，我的作品 DOCTOR M 起初是永恒的旅行的附属模组">整合包制作</span>
+            <span class="hero-tag" data-tooltip="我是个中国人，英语也不是很好，所以…懂吧？">汉化翻译</span>
+            <span class="hero-tag" data-tooltip="科幻爱好者，尤其是对《三体》这样的硬核科幻感兴趣，当然《神秘博士》这样的软科幻我也热爱">科幻世界观</span>
+            <span class="hero-tag" data-tooltip="我知道有些人会歧视我这样的人，但请相信我，我的 QA 质量把关绝对在线！">AI 辅助开发</span>
+        </div>
+
+    </section>
+
+    <!-- 关于我 -->
+    <section class="section reveal-on-scroll" id="about">
+        <h2>关于我</h2>
+        <p class="about-intro">
+            来自中国，一名 17 岁的高三学生，热衷于科幻作品与经典 FPS 游戏。在作为一名玩家的基础上，才是一位比较业余的模组开发者和整合包作者，以及汉化者。目前，作品只有基于《神秘博士》为主题的 DOCTOR M 和「永恒的旅行」系列整合包。
+        </p>
+        <div class="about-grid">
+            <div class="about-card" data-tooltip="广西人报到！" title="广西人报到！">
+                <div class="about-label">位置</div>
+                <div class="about-value">🇨🇳 中国</div>
+            </div>
+            <div class="about-card" data-tooltip="是的，我还在读书 :P" title="是的，我还在读书 :P">
+                <div class="about-label">年龄</div>
+                <div class="about-value">17 岁 · 高三</div>
+            </div>
+            <div class="about-card" data-tooltip="从玩东西的，到给别人做东西玩的" title="从玩东西的，到给别人做东西玩的">
+                <div class="about-label">身份</div>
+                <div class="about-value">玩家 &gt; 开发者</div>
+            </div>
+        </div>
+        <div class="about-games">
+            <div class="about-label">最喜欢的游戏</div>
+            <div class="game-tags">
+                <span class="game-tag" data-tooltip="因他终将与我们同行" title="因他终将与我们同行">毁灭战士</span>
+                <span class="game-tag" data-tooltip="我就要去莱温霍姆" title="我就要去莱温霍姆">半条命</span>
+                <span class="game-tag" data-tooltip="九蓝一金" title="九蓝一金">蔚蓝档案</span>
+                <span class="game-tag" data-tooltip="MC 是个游戏引擎（bushi）" title="MC 是个游戏引擎（bushi）">我的世界</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ★ 名字来历 -->
+    <div class="name-origin">
+        <div class="name-origin-quote">
+            <span class="quote-mark">“</span>
+            550W 听起来不像是一个名字，<br>
+            但是把它反过来，叫 MOSS，<br>
+            中文直译名为<b>小苔藓</b>，听起来是不是可爱多了？
+            <span class="quote-mark">”</span>
+        </div>
+        <div class="name-origin-source">
+            — 《流浪地球 2》· 550W / MOSS
+        </div>
+        <div class="name-origin-note">
+            我的名字 <b>Small Moss</b>，正是取自这里。
+        </div>
+    </div>
+
+    <!-- 作品 -->
+    <section class="section reveal-on-scroll" id="works">
+        <h2>我的作品</h2>
+        <p class="section-subtitle">我的作品都是免费发布的，如果遇到付费二次分发，请联系我。</p>
+
+        <div class="works-list">
+            <!-- DOCTOR M -->
+            <a href="https://modrinth.com/mod/doctorm" class="work-card" target="_blank" rel="noopener">
+                <div class="work-icon">
+                    <img src="assets/icons/doctor_m.png" alt="DOCTOR M">
+                </div>
+                <div class="work-info">
+                    <h3>DOCTOR M</h3>
+                    <p>AIT扩展模组，让AIT变得更好更棒！</p>
+                </div>
+                <div class="work-stats">
+                    <span class="stat-downloads" data-modrinth-project="doctorm">--</span>
+                    <span class="stat-label">下载</span>
+                </div>
+                <div class="work-arrow">↗</div>
+            </a>
+
+            <!-- 永恒的旅行 -->
+            <a href="https://github.com/smallmoss233/Eternal_Travel_2-New_World" class="work-card" target="_blank" rel="noopener">
+                <div class="work-icon">
+                    <img src="assets/icons/eternal_travel.png" alt="永恒的旅行">
+                </div>
+                <div class="work-info">
+                    <h3>永恒的旅行</h3>
+                    <p>基于《神秘博士》主题的整合包系列</p>
+                </div>
+                <div class="work-stats">
+                    <span class="stat-downloads">--</span>
+                    <span class="stat-label">下载</span>
+                </div>
+                <div class="work-arrow">↗</div>
+            </a>
+        </div>
+
+
+        <!-- ★ GitHub 活跃度 -->
+        <div class="github-stats">
+            <div class="about-label">GitHub 活跃度</div>
+
+            <!-- 贡献热力图 -->
+            <div class="github-chart">
+                <img src="https://ghchart.rshah.org/58a6ff/smallmoss233"
+                     alt="Small Moss 的 GitHub 贡献图"
+                     loading="lazy">
+            </div>
+
+            <a href="https://github.com/smallmoss233">
+                <img src="https://img.shields.io/badge/GitHub-smallmoss233-58a6ff?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+            </a>
+        </div>
+
+        <!-- ★ 最近提交 -->
+        <div class="recent-commits">
+            <div class="about-label">最近提交</div>
+            <div id="commit-list" class="commit-list">
+                <div class="commit-loading">加载中…</div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 联系 -->
+    <section class="section reveal-on-scroll" id="contact">
+        <h2>联系</h2>
+        <p class="contact-line">
+            <a href="https://github.com/smallmoss233" target="_blank" rel="noopener">GitHub @smallmoss233</a>
+            <span class="dot">·</span>
+            <a href="https://space.bilibili.com/2100392650" target="_blank" rel="noopener">Bilibili</a>
+        </p>
+    </section>
+
+    <footer class="reveal-on-scroll">
+        <div class="gallifreyan-line small">CELESTIAL INTERVENTION AGENCY</div>
+        <p>© 2026 Small Moss</p>
+    </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
