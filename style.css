@@ -463,13 +463,15 @@ footer {
 .gallifreyan-line {
     font-family: 'Gallifreyan', serif;
     display: flex;
-    flex-direction: row;      /* ★ 横向排列 */
+    flex-direction: row;
     align-items: center;
-    gap: 20px;                /* ★ 两个词之间的间距 */
+    gap: 20px;
     font-size: clamp(1.2rem, 3vw, 1.8rem);
     letter-spacing: 0.05em;
     animation: gallifreyanGlow 4s ease-in-out infinite;
-    margin-top: -10px;        /* ★ 与标题贴近一点 */
+    margin-top: -10px;
+    position: relative;
+    z-index: 1;
 }
 
 .gallifreyan-line span { display: block; line-height: 1; }
@@ -504,6 +506,8 @@ footer {
     width: 100%;
     max-width: 900px;
     padding: 0 8px;
+    position: relative;
+    z-index: 2;
 }
 
 .pixel-title {
