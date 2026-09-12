@@ -514,6 +514,8 @@ footer {
     width: 100%;
     height: auto;
     display: block;
+    position: relative;
+    z-index: 2;
 }
 
 /* SVG 内文字用 CSS 控制字体 */
