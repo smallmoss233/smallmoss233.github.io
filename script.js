@@ -184,9 +184,9 @@ async function fetchRecentCommits() {
     const username = 'smallmoss233';
     const maxCommits = 10;
     const CACHE_KEY = 'doctor_m_commits_cache';
-    const CACHE_TTL = 5 * 60 * 1000;   // 5 分钟
+    const CACHE_TTL = 5 * 60 * 1000;
 
-    // 1. 先读缓存
+    // 1. 读缓存
     try {
         const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
         if (cached && (Date.now() - cached.time < CACHE_TTL)) {
@@ -196,7 +196,7 @@ async function fetchRecentCommits() {
     } catch (e) {}
 
     try {
-        // 2. 拿最近更新的公开仓库（按 updated 排序）
+        // 2. 拿最近更新的公开仓库
         const reposRes = await fetch(
             `https://api.github.com/users/${username}/repos?sort=updated&per_page=15`,
             { headers: { 'Accept': 'application/vnd.github+json' } }
@@ -205,12 +205,15 @@ async function fetchRecentCommits() {
         if (!reposRes.ok) throw new Error(`Repos HTTP ${reposRes.status}`);
         const repos = await reposRes.json();
 
+        // ★★★ 关键：这里定义 ownRepos
+        const ownRepos = repos.filter(r => !r.fork);
+
         // 3. 并行拉每个仓库里自己的最近 commits
         const allCommits = [];
         const promises = ownRepos.slice(0, 8).map(async repo => {
             try {
                 const res = await fetch(
-                    `https://api.github.com/repos/${username}/${repo.name}/commits?author=${username}&per_page=3`,
+                    `https://api.github.com/repos/${username}/${repo.name}/commits?author=${username}&per_page=10`,
                     { headers: { 'Accept': 'application/vnd.github+json' } }
                 );
                 if (!res.ok) return [];
@@ -228,7 +231,7 @@ async function fetchRecentCommits() {
         });
 
         const results = await Promise.all(promises);
-        results.forEach(list => allCommits.push(...list));
+        results.forEach(arr => allCommits.push(...arr));
 
         // 4. 按时间排序，取前 10
         allCommits.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -239,7 +242,6 @@ async function fetchRecentCommits() {
             return;
         }
 
-        // 5. 渲染 + 写缓存
         renderCommits(list, top);
         try {
             localStorage.setItem(CACHE_KEY, JSON.stringify({
@@ -249,7 +251,7 @@ async function fetchRecentCommits() {
         } catch (e) {}
 
     } catch (err) {
-        console.warn('获取提交失败:', err);
+        console.error('获取提交失败:', err);
         list.innerHTML = '<div class="commit-empty">暂时无法加载提交记录</div>';
     }
 }
