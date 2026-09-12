@@ -490,11 +490,6 @@ footer {
     text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
 }
 
-@keyframes gallifreyanGlow {
-    0%, 100% { filter: brightness(0.85); }
-    50%      { filter: brightness(1.3) drop-shadow(0 0 16px var(--glow)); }
-}
-
 /* ---------- 标题（实线 + 渐变） ---------- */
 .title-stack {
     display: flex;
@@ -546,13 +541,6 @@ footer {
 
 @keyframes fadeInUp {
     to { opacity: 1; transform: translateY(0); }
-}
-
-/* ---------- 响应式 ---------- */
-@media (max-width: 700px) {
-    .nav-inner { padding: 0 12px; }
-    .nav-link { padding: 6px 10px; font-size: 0.85rem; }
-    .nav-link span:not(.nav-icon) { display: none; }
 }
 
 @media (max-width: 600px) {
@@ -778,13 +766,6 @@ footer {
 .side-link.active .side-label {
     opacity: 1;
     transform: translateX(0);
-}
-
-/* 手机 / 窄屏隐藏侧边栏 */
-@media (max-width: 900px) {
-    .side-nav {
-        display: none;
-    }
 }
 
 /* ---------- Hero 问候语 ---------- */
@@ -1248,4 +1229,220 @@ footer {
 @media (max-width: 600px) {
     .commit-repo { display: none; }
     .commit-hash { font-size: 0.7rem; padding: 2px 6px; }
+}
+
+/* ============================================================
+   手机端适配
+   ============================================================ */
+
+/* 平板 / 窄屏：侧边导航改为底部横向 */
+@media (max-width: 900px) {
+    .side-nav {
+        left: 50%;
+        top: auto;
+        bottom: 16px;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 14px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: rgba(10, 14, 26, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .side-label {
+        display: none;      /* 手机端只显示圆点 */
+    }
+
+    .side-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* 手机：顶部导航栏图标居中放大 */
+@media (max-width: 700px) {
+    :root {
+        --nav-h: 48px;
+    }
+
+    .top-nav {
+        height: var(--nav-h);
+    }
+
+    .nav-inner {
+        padding: 0 8px;
+        justify-content: center;
+    }
+
+    .nav-links {
+        gap: 4px;
+    }
+
+    .nav-link {
+        padding: 8px 12px;
+        font-size: 1.2rem;
+        gap: 0;
+    }
+
+    .nav-text {
+        display: none;      /* 隐藏文字，保留图标 */
+    }
+
+    .nav-icon {
+        font-size: 1.3rem;
+    }
+
+    /* Hero 内容适配 */
+    .hero {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .hero-greeting {
+        font-size: 1rem;
+        letter-spacing: 0.25em;
+    }
+
+    .pixel-title-wrap {
+        padding: 0;
+    }
+
+    .gallifreyan-line {
+        font-size: 1rem;
+        gap: 14px;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        padding: 0 12px;
+        line-height: 1.6;
+    }
+
+    /* 标签 */
+    .hero-tags {
+        gap: 6px;
+        margin-top: 20px;
+        padding: 0 8px;
+    }
+
+    .hero-tag {
+        font-size: 0.72rem;
+        padding: 5px 12px;
+    }
+
+    /* About */
+    .about-intro {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .about-grid {
+        grid-template-columns: repeat(2, 1fr);   /* 2 列 */
+        gap: 10px;
+    }
+
+    .about-card {
+        padding: 12px 14px;
+    }
+
+    .about-value {
+        font-size: 0.9rem;
+    }
+
+    .game-tag {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+    }
+
+    /* 名字来历 */
+    .name-origin {
+        padding: 18px 20px;
+    }
+
+    .name-origin-quote {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    /* 作品卡片 */
+    .work-card {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .work-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .work-info h3 {
+        font-size: 0.95rem;
+    }
+
+    .work-info p {
+        font-size: 0.78rem;
+    }
+
+    .stat-downloads {
+        font-size: 0.85rem;
+    }
+
+    /* GitHub */
+    .github-chart {
+        padding: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 提交列表 */
+    .commit-item {
+        padding: 8px 12px;
+        font-size: 0.78rem;
+        gap: 8px;
+    }
+
+    .commit-repo {
+        display: none;      /* 手机端隐藏仓库名 */
+    }
+
+    .commit-hash {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+
+    .commit-message {
+        font-size: 0.78rem;
+    }
+
+    /* 页面通用 */
+    .section {
+        padding: 60px 0;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+
+    .content {
+        padding: 0 16px;
+    }
+
+    /* 底部导航占位，避免挡住页脚 */
+    footer {
+        padding-bottom: 80px;
+    }
+}
+
+/* 超窄屏：更紧凑 */
+@media (max-width: 400px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-tag {
+        font-size: 0.68rem;
+        padding: 4px 10px;
+    }
 }

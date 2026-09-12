@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="assets/favicon.jpg">
 </head>
 <body>
-<!-- 背景层：星云 + 旋转图 + 扫描线 -->
+<!-- 背景层 -->
 <div class="background-layer">
     <div class="nebula">
         <div class="nebula-blob nebula-blue"></div>
@@ -22,7 +22,7 @@
     <div class="scanline-sweep scanline-sweep-purple"></div>
 </div>
 
-<!-- 点击粒子画布 -->
+<!-- 粒子画布 -->
 <canvas id="particle-canvas"></canvas>
 
 <!-- 顶部导航栏 -->
@@ -31,25 +31,25 @@
         <div class="nav-links">
             <a href="https://github.com/smallmoss233" target="_blank" rel="noopener" class="nav-link">
                 <span class="nav-icon">⌘</span>
-                <span>GitHub</span>
+                <span class="nav-text">GitHub</span>
             </a>
             <a href="https://space.bilibili.com/2100392650" target="_blank" rel="noopener" class="nav-link">
                 <span class="nav-icon">▶</span>
-                <span>B站</span>
+                <span class="nav-text">B站</span>
             </a>
             <a href="https://modrinth.com/user/SmallMoss" target="_blank" rel="noopener" class="nav-link">
                 <span class="nav-icon">◆</span>
-                <span>Modrinth</span>
+                <span class="nav-text">Modrinth</span>
             </a>
             <a href="#" class="nav-link nav-link-disabled" title="Discord 服务器即将上线">
                 <span class="nav-icon">◆</span>
-                <span>Discord</span>
+                <span class="nav-text">Discord</span>
             </a>
         </div>
     </div>
 </nav>
 
-<!-- ★ 左侧内容导航 -->
+<!-- 左侧内容导航 -->
 <nav class="side-nav">
     <a href="#home" class="side-link" data-target="home">
         <span class="side-dot"></span>
@@ -69,35 +69,31 @@
     </a>
 </nav>
 
-<!-- 内容层 -->
 <main class="content">
 
     <!-- Hero -->
     <section class="hero" id="home">
         <div class="title-stack fade-in-up">
-
-            <!-- ★ 新增：上方问候语 -->
             <p class="hero-greeting">你好，我是</p>
 
-            <!-- 标题（实线 + 循环渐变） -->
+            <!-- ★ viewBox 加宽，避免裁切 -->
             <div class="pixel-title-wrap">
-                <svg class="pixel-title" viewBox="0 0 900 180"
+                <svg class="pixel-title" viewBox="0 0 1100 200"
                      xmlns="http://www.w3.org/2000/svg"
                      preserveAspectRatio="xMidYMid meet"
                      role="img" aria-label="Small Moss">
                     <defs>
                         <linearGradient id="titleGradient"
                                         gradientUnits="userSpaceOnUse"
-                                        x1="0" y1="0" x2="1800" y2="0">
+                                        x1="0" y1="0" x2="2200" y2="0">
                             <stop offset="0%"   stop-color="#58a6ff"/>
                             <stop offset="25%"  stop-color="#a855f7"/>
                             <stop offset="50%"  stop-color="#58a6ff"/>
                             <stop offset="75%"  stop-color="#a855f7"/>
                             <stop offset="100%" stop-color="#58a6ff"/>
-
                             <animateTransform attributeName="gradientTransform"
                                               type="translate"
-                                              from="-900 0" to="0 0"
+                                              from="-1100 0" to="0 0"
                                               dur="6s" repeatCount="indefinite"/>
                         </linearGradient>
 
@@ -110,17 +106,16 @@
                         </filter>
                     </defs>
 
-                    <text x="450" y="130"
+                    <text x="550" y="145"
                           text-anchor="middle"
                           class="pixel-title-text"
-                          font-size="150"
-                          letter-spacing="10"
+                          font-size="140"
+                          letter-spacing="8"
                           fill="url(#titleGradient)"
                           filter="url(#titleGlow)">SMALL MOSS</text>
                 </svg>
             </div>
 
-            <!-- Gallifreyan 移到标题下方 -->
             <div class="gallifreyan-line">
                 <span class="g-name">SMALL</span>
                 <span class="g-agency">MOSS</span>
@@ -139,15 +134,15 @@
             <span class="hero-tag" data-tooltip="科幻爱好者，尤其是对《三体》这样的硬核科幻感兴趣，当然《神秘博士》这样的软科幻我也热爱">科幻世界观</span>
             <span class="hero-tag" data-tooltip="我知道有些人会歧视我这样的人，但请相信我，我的 QA 质量把关绝对在线！">AI 辅助开发</span>
         </div>
-
     </section>
 
-    <!-- 关于我 -->
+    <!-- 关于我（★ name-origin 移进来了） -->
     <section class="section reveal-on-scroll" id="about">
         <h2>关于我</h2>
         <p class="about-intro">
             来自中国，一名 17 岁的高三学生，热衷于科幻作品与经典 FPS 游戏。在作为一名玩家的基础上，才是一位比较业余的模组开发者和整合包作者，以及汉化者。目前，作品只有基于《神秘博士》为主题的 DOCTOR M 和「永恒的旅行」系列整合包。
         </p>
+
         <div class="about-grid">
             <div class="about-card" data-tooltip="广西人报到！" title="广西人报到！">
                 <div class="about-label">位置</div>
@@ -162,6 +157,7 @@
                 <div class="about-value">玩家 &gt; 开发者</div>
             </div>
         </div>
+
         <div class="about-games">
             <div class="about-label">最喜欢的游戏</div>
             <div class="game-tags">
@@ -171,24 +167,24 @@
                 <span class="game-tag" data-tooltip="MC 是个游戏引擎（bushi）" title="MC 是个游戏引擎（bushi）">我的世界</span>
             </div>
         </div>
-    </section>
 
-    <!-- ★ 名字来历 -->
-    <div class="name-origin">
-        <div class="name-origin-quote">
-            <span class="quote-mark">“</span>
-            550W 听起来不像是一个名字，<br>
-            但是把它反过来，叫 MOSS，<br>
-            中文直译名为<b>小苔藓</b>，听起来是不是可爱多了？
-            <span class="quote-mark">”</span>
+        <!-- ★ name-origin 移到这里 -->
+        <div class="name-origin">
+            <div class="name-origin-quote">
+                <span class="quote-mark">“</span>
+                550W 听起来不像是一个名字，<br>
+                但是把它反过来，叫 MOSS，<br>
+                中文直译名为<b>小苔藓</b>，听起来是不是可爱多了？
+                <span class="quote-mark">”</span>
+            </div>
+            <div class="name-origin-source">
+                — 《流浪地球 2》· 550W / MOSS
+            </div>
+            <div class="name-origin-note">
+                我的名字 <b>Small Moss</b>，正是取自这里。
+            </div>
         </div>
-        <div class="name-origin-source">
-            — 《流浪地球 2》· 550W / MOSS
-        </div>
-        <div class="name-origin-note">
-            我的名字 <b>Small Moss</b>，正是取自这里。
-        </div>
-    </div>
+    </section>
 
     <!-- 作品 -->
     <section class="section reveal-on-scroll" id="works">
@@ -196,7 +192,6 @@
         <p class="section-subtitle">我的作品都是免费发布的，如果遇到付费二次分发，请联系我。</p>
 
         <div class="works-list">
-            <!-- DOCTOR M -->
             <a href="https://modrinth.com/mod/doctorm" class="work-card" target="_blank" rel="noopener">
                 <div class="work-icon">
                     <img src="assets/icons/doctor_m.png" alt="DOCTOR M">
@@ -212,7 +207,6 @@
                 <div class="work-arrow">↗</div>
             </a>
 
-            <!-- 永恒的旅行 -->
             <a href="https://github.com/smallmoss233/Eternal_Travel_2-New_World" class="work-card" target="_blank" rel="noopener">
                 <div class="work-icon">
                     <img src="assets/icons/eternal_travel.png" alt="永恒的旅行">
@@ -229,12 +223,10 @@
             </a>
         </div>
 
-
-        <!-- ★ GitHub 活跃度 -->
+        <!-- GitHub 活跃度 -->
         <div class="github-stats">
             <div class="about-label">GitHub 活跃度</div>
 
-            <!-- 贡献热力图 -->
             <div class="github-chart">
                 <img src="https://ghchart.rshah.org/58a6ff/smallmoss233"
                      alt="Small Moss 的 GitHub 贡献图"
@@ -246,14 +238,13 @@
             </a>
         </div>
 
-        <!-- ★ 最近提交 -->
+        <!-- 最近提交 -->
         <div class="recent-commits">
             <div class="about-label">最近提交</div>
             <div id="commit-list" class="commit-list">
                 <div class="commit-loading">加载中…</div>
             </div>
         </div>
-
     </section>
 
     <!-- 联系 -->
