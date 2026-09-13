@@ -448,8 +448,70 @@ a:hover { color: #79c0ff; text-shadow: 0 0 8px var(--glow); }
 .project-card p { color: var(--text-dim); font-size: 0.95rem; }
 
 /* ---------- 联系 ---------- */
-.contact-line { font-size: 1.05rem; }
-.contact-line .dot { margin: 0 12px; color: var(--text-dim); }
+/* ---------- 联系卡片 ---------- */
+.join-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.join-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.join-card:hover {
+    border-color: var(--accent);
+    background: rgba(88, 166, 255, 0.05);
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px var(--glow);
+    color: inherit;
+}
+
+.join-icon {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.join-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.join-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+/* 手机端 */
+@media (max-width: 700px) {
+    .join-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .join-card {
+        padding: 18px 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .join-links {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* ---------- 页脚 ---------- */
 footer {

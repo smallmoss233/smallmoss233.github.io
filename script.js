@@ -279,3 +279,46 @@ function escapeHtml(str) {
 fetchRecentCommits();
 
 });
+
+// ==================== Discord 在线人数 ====================
+const DISCORD_SERVER_ID = '1548521178006560831';
+const DISCORD_CACHE_KEY = 'cia_discord_cache';
+const DISCORD_CACHE_TTL = 5 * 60 * 1000;
+
+async function fetchDiscordStatus() {
+    const el = document.getElementById('discord-status');
+    if (!el || !DISCORD_SERVER_ID) return;
+
+    // 读缓存
+    try {
+        const cached = JSON.parse(localStorage.getItem(DISCORD_CACHE_KEY) || 'null');
+        if (cached && (Date.now() - cached.time < DISCORD_CACHE_TTL)) {
+            el.textContent = cached.text;
+            return;
+        }
+    } catch (e) {}
+
+    try {
+        const res = await fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+        const text = `${data.presence_count || 0} 人在线`;
+        el.textContent = text;
+
+        try {
+            localStorage.setItem(DISCORD_CACHE_KEY, JSON.stringify({
+                time: Date.now(),
+                text
+            }));
+        } catch (e) {}
+    } catch (e) {
+        console.warn('无法获取 Discord 状态:', e);
+        el.textContent = '点击加入';
+    }
+}
+
+// 在 DOMContentLoaded 里调用
+document.addEventListener('DOMContentLoaded', () => {
+    fetchDiscordStatus();
+});
