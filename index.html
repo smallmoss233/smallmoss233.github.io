@@ -8,15 +8,9 @@
     <link rel="icon" type="image/png" href="assets/favicon.jpg">
 </head>
 <body>
-<!-- 背景层 -->
+<!-- 背景层：纯黑 + 数据流 + 扫描线 -->
 <div class="background-layer">
-    <div class="nebula">
-        <div class="nebula-blob nebula-blue"></div>
-        <div class="nebula-blob nebula-purple"></div>
-        <div class="nebula-blob nebula-pink"></div>
-    </div>
-    <div class="stars"></div>
-    <div class="bg-image"></div>
+    <canvas id="data-stream"></canvas>
     <div class="scanlines"></div>
     <div class="scanline-sweep scanline-sweep-blue"></div>
     <div class="scanline-sweep scanline-sweep-purple"></div>
@@ -76,7 +70,6 @@
         <div class="title-stack fade-in-up">
             <p class="hero-greeting">你好，我是</p>
 
-            <!-- ★ viewBox 加宽，避免裁切 -->
             <div class="pixel-title-wrap">
                 <svg class="pixel-title" viewBox="0 0 1100 200"
                      xmlns="http://www.w3.org/2000/svg"
@@ -86,11 +79,11 @@
                         <linearGradient id="titleGradient"
                                         gradientUnits="userSpaceOnUse"
                                         x1="0" y1="0" x2="2200" y2="0">
-                            <stop offset="0%"   stop-color="#58a6ff"/>
-                            <stop offset="25%"  stop-color="#a855f7"/>
-                            <stop offset="50%"  stop-color="#58a6ff"/>
-                            <stop offset="75%"  stop-color="#a855f7"/>
-                            <stop offset="100%" stop-color="#58a6ff"/>
+                            <stop offset="0%"   stop-color="#58a6ff" class="grad-a"/>
+                            <stop offset="25%"  stop-color="#a855f7" class="grad-b"/>
+                            <stop offset="50%"  stop-color="#58a6ff" class="grad-a"/>
+                            <stop offset="75%"  stop-color="#a855f7" class="grad-b"/>
+                            <stop offset="100%" stop-color="#58a6ff" class="grad-a"/>
                             <animateTransform attributeName="gradientTransform"
                                               type="translate"
                                               from="-1100 0" to="0 0"
@@ -115,11 +108,6 @@
                           filter="url(#titleGlow)">SMALL MOSS</text>
                 </svg>
             </div>
-
-            <div class="gallifreyan-line">
-                <span class="g-name">SMALL</span>
-                <span class="g-agency">MOSS</span>
-            </div>
         </div>
 
         <p class="subtitle fade-in-up">一位热衷于科幻作品的 Minecraft Mod 开发者 · 天体干预局组织的组长</p>
@@ -131,16 +119,16 @@
             <span class="hero-tag" data-tooltip="这正是我现在热爱的">模组开发</span>
             <span class="hero-tag" data-tooltip="讲个笑话，我的作品 DOCTOR M 起初是永恒的旅行的附属模组">整合包制作</span>
             <span class="hero-tag" data-tooltip="我是个中国人，英语也不是很好，所以…懂吧？">汉化翻译</span>
-            <span class="hero-tag" data-tooltip="科幻爱好者，尤其是对《三体》这样的硬核科幻感兴趣，当然《神秘博士》这样的软科幻我也热爱">科幻世界观</span>
+            <span class="hero-tag" data-tooltip="科幻爱好者，尤其是对《三体》《神秘博士》这样的科幻作品">科幻世界观</span>
             <span class="hero-tag" data-tooltip="我知道有些人会歧视我这样的人，但请相信我，我的 QA 质量把关绝对在线！">AI 辅助开发</span>
         </div>
     </section>
 
-    <!-- 关于我（★ name-origin 移进来了） -->
+    <!-- 关于我 -->
     <section class="section reveal-on-scroll" id="about">
         <h2>关于我</h2>
         <p class="about-intro">
-            来自中国，一名 17 岁的高三学生，热衷于科幻作品与经典 FPS 游戏。在作为一名玩家的基础上，才是一位比较业余的模组开发者和整合包作者，以及汉化者。目前，作品只有基于《神秘博士》为主题的 DOCTOR M 和「永恒的旅行」系列整合包。
+            来自中国，一名 17 岁的高三学生，热衷于科幻作品与经典 FPS 游戏。在作为一名玩家的基础上，才是一位比较业余的模组开发者和整合包作者，以及汉化者。目前，作品有基于《神秘博士》为主题的 DOCTOR M 系列、以《幽灵行者》为主题的 Ghostrunner 模组，以及「永恒的旅行」系列整合包。
         </p>
 
         <div class="about-grid">
@@ -165,10 +153,10 @@
                 <span class="game-tag" data-tooltip="我就要去莱温霍姆" title="我就要去莱温霍姆">半条命</span>
                 <span class="game-tag" data-tooltip="九蓝一金" title="九蓝一金">蔚蓝档案</span>
                 <span class="game-tag" data-tooltip="MC 是个游戏引擎（bushi）" title="MC 是个游戏引擎（bushi）">我的世界</span>
+                <span class="game-tag" data-tooltip="我即是刀锋" title="我即是刀锋">幽灵行者2</span>
             </div>
         </div>
 
-        <!-- ★ name-origin 移到这里 -->
         <div class="name-origin">
             <div class="name-origin-quote">
                 <span class="quote-mark">“</span>
@@ -213,11 +201,41 @@
                 </div>
                 <div class="work-info">
                     <h3>永恒的旅行</h3>
-                    <p>基于《神秘博士》主题的整合包系列</p>
+                    <p>《神秘博士》主题的整合包系列</p>
                 </div>
                 <div class="work-stats">
                     <span class="stat-downloads">--</span>
-                    <span class="stat-label">下载</span>
+                    <span class="stat-label">暂无下载</span>
+                </div>
+                <div class="work-arrow">↗</div>
+            </a>
+
+            <a href="https://github.com/smallmoss233/DOCTOR-M-3" class="work-card" target="_blank" rel="noopener">
+                <div class="work-icon">
+                    <img src="assets/icons/doctor_m.png" alt="DOCTOR M 3">
+                </div>
+                <div class="work-info">
+                    <h3>DOCTOR M 3</h3>
+                    <p>DOCTOR M 3.0，新一代《神秘博士》模组。</p>
+                </div>
+                <div class="work-stats">
+                    <span class="stat-downloads">--</span>
+                    <span class="stat-label">暂无下载</span>
+                </div>
+                <div class="work-arrow">↗</div>
+            </a>
+
+            <a href="https://github.com/smallmoss233/Ghostrunner" class="work-card" target="_blank" rel="noopener">
+                <div class="work-icon">
+                    <span class="work-icon-letter">G</span>
+                </div>
+                <div class="work-info">
+                    <h3>Ghostrunner</h3>
+                    <p>以《幽灵行者》为主题的模组，快、狠、准。</p>
+                </div>
+                <div class="work-stats">
+                    <span class="stat-downloads">--</span>
+                    <span class="stat-label">暂无下载</span>
                 </div>
                 <div class="work-arrow">↗</div>
             </a>
@@ -253,28 +271,24 @@
         <p class="section-subtitle">通过以下渠道找到我，或者加入天体干预局。</p>
 
         <div class="join-links">
-            <!-- GitHub -->
             <a href="https://github.com/smallmoss233" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">⌘</div>
                 <div class="join-title">GitHub</div>
                 <div class="join-desc">@smallmoss233</div>
             </a>
 
-            <!-- B站 -->
             <a href="https://space.bilibili.com/2100392650" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">▶</div>
                 <div class="join-title">Bilibili</div>
                 <div class="join-desc">@SmallMoss</div>
             </a>
 
-            <!-- QQ 群 -->
             <a href="https://qm.qq.com/q/D7UNoQecVM" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">◈</div>
                 <div class="join-title">QQ 群</div>
                 <div class="join-desc">群号：654700630</div>
             </a>
 
-            <!-- Discord（动态在线人数） -->
             <a href="https://discord.gg/2pHFQwQ9Bm" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">◆</div>
                 <div class="join-title">Discord</div>
@@ -284,11 +298,14 @@
     </section>
 
     <footer class="reveal-on-scroll">
-        <div class="gallifreyan-line small">CELESTIAL INTERVENTION AGENCY</div>
+        <p class="footer-line">CELESTIAL INTERVENTION AGENCY</p>
         <p>© 2026 Small Moss</p>
     </footer>
 
 </main>
+
+<!-- 危险模式横幅（仅警报期间显示） -->
+<div class="alert-banner">⚠ WARNING · SYSTEM ANOMALY DETECTED</div>
 
 <script src="script.js"></script>
 </body>

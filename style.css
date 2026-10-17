@@ -1,12 +1,9 @@
-/* ===== 字体 ===== */
-@font-face {
-    font-family: 'Gallifreyan';
-    src: url('assets/fonts/gallifreyan.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
+/* ============================================================
+   Small Moss — 个人站样式 v2
+   主题：纯黑 + 数据流 · 蓝紫黑 · 精简现代
+   ============================================================ */
 
+/* ===== 字体 ===== */
 /* ★ 免费替代：Bebas Neue（粗黑 + 力量感，接近汉仪力量简黑） */
 @font-face {
     font-family: 'Bebas Neue';
@@ -15,13 +12,14 @@
 }
 
 :root {
-    --bg-dark: #0a0e1a;
+    --bg-dark: #050508;          /* 近纯黑，带一丝蓝紫底色 */
+    --bg-panel: rgba(12, 14, 22, 0.55);
     --text-main: #c9d1d9;
     --text-dim: #8b949e;
     --accent: #58a6ff;
     --accent-alt: #a855f7;
-    --border: #30363d;
-    --glow: rgba(88, 166, 255, 0.4);
+    --border: #262a35;
+    --glow: rgba(88, 166, 255, 0.35);
     --nav-h: 52px;
 }
 
@@ -37,13 +35,18 @@ body {
     overflow-x: hidden;
 }
 
+::selection {
+    background: rgba(88, 166, 255, 0.3);
+    color: #fff;
+}
+
 /* ---------- 顶部导航栏 ---------- */
 .top-nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: var(--nav-h);
     z-index: 100;
-    background: rgba(10, 14, 26, 0.75);
+    background: rgba(5, 5, 8, 0.72);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -85,167 +88,40 @@ body {
 
 .nav-link-disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
 
-/* ---------- 背景层 ---------- */
+/* ---------- 背景层：数据流画布 + 扫描线 ---------- */
 .background-layer {
     position: fixed;
     inset: 0;
     z-index: 0;
     overflow: hidden;
+    background: var(--bg-dark);
 }
 
-/* ---------- 星云 ---------- */
-.nebula {
+/* 数据流画布（JS 绘制，透明底叠在黑底上） */
+#data-stream {
     position: absolute;
-    inset: -15%;              /* 稍微扩大边界，给光斑移动留空间 */
-    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;               /* ★ 整体压暗，不抢内容 */
+}
+
+/* 静态 CRT 扫描纹理：极淡的横向细线 */
+.scanlines {
+    position: absolute;
+    inset: 0;
     pointer-events: none;
-    filter: blur(40px);       /* ★ 60 → 40，减少模糊 */
-    opacity: 0.85;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.022) 0px,
+        rgba(255, 255, 255, 0.022) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    mix-blend-mode: overlay;
 }
 
-.nebula-blob {
-    position: absolute;
-    border-radius: 50%;
-    will-change: transform, filter;
-}
-
-/* 蓝色光斑 - 左上 */
-.nebula-blue {
-    width: 55%;
-    height: 55%;
-    top: 5%;
-    left: 0%;
-    background: radial-gradient(circle, rgba(88, 166, 255, 0.7) 0%, transparent 70%);
-    animation:
-        nebulaMove1 15s ease-in-out infinite alternate,
-        nebulaHue1 10s ease-in-out infinite alternate;
-}
-
-/* 紫色光斑 - 右侧 */
-.nebula-purple {
-    width: 50%;
-    height: 50%;
-    top: 20%;
-    right: 0%;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.65) 0%, transparent 70%);
-    animation:
-        nebulaMove2 18s ease-in-out infinite alternate,
-        nebulaHue2 12s ease-in-out infinite alternate;
-}
-
-/* 粉紫色光斑 - 底部 */
-.nebula-pink {
-    width: 48%;
-    height: 48%;
-    bottom: 0%;
-    left: 28%;
-    background: radial-gradient(circle, rgba(200, 100, 255, 0.55) 0%, transparent 70%);
-    animation:
-        nebulaMove3 17s ease-in-out infinite alternate,
-        nebulaHue3 14s ease-in-out infinite alternate;
-}
-
-/* ---------- 位移（幅度加大到 ±25%） ---------- */
-@keyframes nebulaMove1 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(20%, 12%) scale(1.2); }
-    100% { transform: translate(-15%, 20%) scale(1.1); }
-}
-
-@keyframes nebulaMove2 {
-    0%   { transform: translate(0, 0) scale(1.1); }
-    50%  { transform: translate(-18%, 22%) scale(1.3); }
-    100% { transform: translate(15%, -12%) scale(1); }
-}
-
-@keyframes nebulaMove3 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(22%, -18%) scale(1.18); }
-    100% { transform: translate(-18%, 12%) scale(1.12); }
-}
-
-/* ---------- 蓝紫循环（幅度加大到 60°） ---------- */
-@keyframes nebulaHue1 {
-    0%   { filter: hue-rotate(0deg); }
-    50%  { filter: hue-rotate(60deg); }
-    100% { filter: hue-rotate(0deg); }
-}
-
-@keyframes nebulaHue2 {
-    0%   { filter: hue-rotate(0deg); }
-    50%  { filter: hue-rotate(-70deg); }
-    100% { filter: hue-rotate(0deg); }
-}
-
-@keyframes nebulaHue3 {
-    0%   { filter: hue-rotate(0deg); }
-    50%  { filter: hue-rotate(50deg); }
-    100% { filter: hue-rotate(0deg); }
-}
-
-/* ★ 星点：用 JS 动态生成，这里只定义样式 */
-.stars { position: absolute; inset: 0; pointer-events: none; }
-
-.star {
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-    animation: twinkle 3s ease-in-out infinite;
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(1); }
-    50%      { opacity: 1;   transform: scale(1.3); }
-}
-
-/* 旋转 + 呼吸缩放 + 缓慢漂移 */
-.bg-image {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 75vmax;              /* ★ 150 → 75，缩小一半 */
-    height: 75vmax;             /* ★ 同步 */
-    margin-top: -37.5vmax;      /* ★ margin 也要减半，保持居中 */
-    margin-left: -37.5vmax;     /* ★ 同上 */
-    background-image: url('assets/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.25;
-    filter: blur(3px) brightness(0.8);
-    animation:
-        bgRotate 120s linear infinite,
-        bgPulse 20s ease-in-out infinite;
-    will-change: transform, scale;
-}
-
-@keyframes bgRotate {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-}
-
-@keyframes bgPulse {
-    0%, 100% { scale: 1.00; }
-    50%      { scale: 1.08; }
-}
-
-@keyframes gallifreyanGlow {
-    0%, 100% {
-        transform: scale(1);
-        filter: brightness(0.85);
-    }
-    50% {
-        transform: scale(1.12);       /* ★ 放大 8% */
-        filter: brightness(1.4) drop-shadow(0 0 20px var(--glow));
-    }
-}
-
-@keyframes bgDrift {
-    from { translate: 0 0; }
-    to   { translate: 3% -2%; }
-}
-
-/* ---------- 扫描线 ---------- */
+/* ---------- 扫描线（扫过的高亮带，颜色调淡） ---------- */
 .scanline-sweep {
     position: absolute;
     top: -10%;
@@ -254,7 +130,7 @@ body {
     height: 12%;
     pointer-events: none;
     opacity: 0;
-    /* ★ 关键：总周期 10s，每条线只用前半段活动 */
+    /* 总周期 10s，每条线只用前半段活动 */
     animation: scanSweep 10s linear infinite;
 }
 
@@ -263,12 +139,12 @@ body {
     background: linear-gradient(
         180deg,
         transparent 0%,
-        rgba(88, 166, 255, 0.12) 30%,
-        rgba(88, 166, 255, 0.55) 50%,
-        rgba(88, 166, 255, 0.12) 70%,
+        rgba(88, 166, 255, 0.05) 30%,
+        rgba(88, 166, 255, 0.18) 50%,
+        rgba(88, 166, 255, 0.05) 70%,
         transparent 100%
     );
-    box-shadow: 0 0 30px rgba(88, 166, 255, 0.5);
+    box-shadow: 0 0 24px rgba(88, 166, 255, 0.18);
     animation-delay: 0s;
 }
 
@@ -277,36 +153,36 @@ body {
     background: linear-gradient(
         180deg,
         transparent 0%,
-        rgba(168, 85, 247, 0.12) 30%,
-        rgba(168, 85, 247, 0.55) 50%,
-        rgba(168, 85, 247, 0.12) 70%,
+        rgba(168, 85, 247, 0.05) 30%,
+        rgba(168, 85, 247, 0.18) 50%,
+        rgba(168, 85, 247, 0.05) 70%,
         transparent 100%
     );
-    box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
-    animation-delay: 5s;   /* ★ 总周期的一半 */
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.18);
+    animation-delay: 5s;
 }
 
-/* ★ 关键帧：0-50% 完成一次扫描，50-100% 藏起来 */
+/* 0-50% 完成一次扫描，50-100% 藏起来 */
 @keyframes scanSweep {
     0%   { top: -10%; opacity: 0; }
     8%   { opacity: 1; }
     42%  { opacity: 1; }
     50%  { top: 110%; opacity: 0; }
-    100% { top: 110%; opacity: 0; }   /* 后半段停在底部，隐身 */
+    100% { top: 110%; opacity: 0; }
 }
 
 /* ---------- 点击粒子画布 ---------- */
 #particle-canvas {
     position: fixed;
     inset: 0;
-    z-index: 5;              /* 在背景层之上、内容层之下 */
-    pointer-events: none;    /* 不拦截鼠标事件 */
+    z-index: 5;
+    pointer-events: none;
 }
 
 /* ---------- 内容层 ---------- */
 .content {
     position: relative;
-    z-index: 10;             /* 在 canvas 之上 */
+    z-index: 10;
     max-width: 720px;
     margin: 0 auto;
     padding: 0 24px;
@@ -336,10 +212,24 @@ body {
 
 .section h2 {
     font-size: 1.8rem;
-    color: var(--accent);
     margin-bottom: 24px;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
+    position: relative;
+    /* ★ 白字 + 蓝紫渐变下划线，黑底上更干净 */
+    color: #f0f3f8;
+    letter-spacing: 0.02em;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 64px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+    box-shadow: 0 0 8px var(--glow);
 }
 
 a {
@@ -368,7 +258,7 @@ a:hover { color: #79c0ff; text-shadow: 0 0 8px var(--glow); }
     padding: 16px 18px;
     border: 1px solid var(--border);
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.25);
+    background: var(--bg-panel);
     transition: all 0.3s ease;
 }
 
@@ -447,7 +337,6 @@ a:hover { color: #79c0ff; text-shadow: 0 0 8px var(--glow); }
 .project-card h3 { color: #fff; margin-bottom: 8px; font-size: 1.15rem; }
 .project-card p { color: var(--text-dim); font-size: 0.95rem; }
 
-/* ---------- 联系 ---------- */
 /* ---------- 联系卡片 ---------- */
 .join-links {
     display: grid;
@@ -463,7 +352,7 @@ a:hover { color: #79c0ff; text-shadow: 0 0 8px var(--glow); }
     padding: 24px 16px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    background: rgba(0, 0, 0, 0.25);
+    background: var(--bg-panel);
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
@@ -521,40 +410,16 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ---------- Gallifreyan ---------- */
-.gallifreyan-line {
-    font-family: 'Gallifreyan', serif;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
-    letter-spacing: 0.05em;
-    animation: gallifreyanGlow 4s ease-in-out infinite;
-    margin-top: -10px;
-    position: relative;
-    z-index: 1;
+.footer-line {
+    font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+    letter-spacing: 0.45em;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    opacity: 0.6;
+    margin-bottom: 8px;
 }
 
-.gallifreyan-line span { display: block; line-height: 1; }
-
-.gallifreyan-line.small {
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
-    margin-bottom: 12px;
-    opacity: 0.5;
-}
-
-.g-name {
-    color: #58a6ff;
-    text-shadow: 0 0 12px rgba(88, 166, 255, 0.6);
-}
-
-.g-agency {
-    color: #a855f7;
-    text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
-}
-
-/* ---------- 标题（实线 + 渐变） ---------- */
+/* ---------- 标题（渐变横幅） ---------- */
 .title-stack {
     display: flex;
     flex-direction: column;
@@ -613,23 +478,22 @@ footer {
 
 @media (max-width: 600px) {
     .section { padding: 60px 0; }
-    .bg-image { opacity: 0.08; }
 }
 
 /* ---------- 作品列表 ---------- */
 .section-subtitle {
     color: var(--text-dim);
     margin-bottom: 24px;
-    margin-top: -12px; /* 和标题的间距 */
+    margin-top: -12px;
 }
 
 .works-list {
     display: flex;
     flex-direction: column;
-    gap: 1px; /* 卡片之间的细线 */
-    background: var(--border); /* 用边框色做背景，露出1px的线 */
+    gap: 1px;
+    background: var(--border);
     border-radius: 8px;
-    overflow: hidden; /* 让卡片圆角生效 */
+    overflow: hidden;
     margin-top: 24px;
 }
 
@@ -638,14 +502,14 @@ footer {
     align-items: center;
     gap: 16px;
     padding: 16px 20px;
-    background: #0d1117; /* 深色卡片背景，和页面主色接近 */
+    background: #0a0c12;
     text-decoration: none;
     color: inherit;
     transition: background 0.2s ease;
 }
 
 .work-card:hover {
-    background: #161b22; /* 悬停时稍微变亮 */
+    background: #11141d;
     color: inherit;
 }
 
@@ -653,11 +517,11 @@ footer {
     width: 48px;
     height: 48px;
     border-radius: 8px;
-    background: #21262d; /* 图标底色的占位 */
+    background: #1a1e28;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* 防止图标被压缩 */
+    flex-shrink: 0;
 }
 
 .work-icon img {
@@ -669,12 +533,12 @@ footer {
 
 .icon-placeholder {
     font-size: 24px;
-    opacity: 0.5; /* 占位符淡一点 */
+    opacity: 0.5;
 }
 
 .work-info {
-    flex-grow: 1; /* 占据中间所有剩余空间 */
-    min-width: 0; /* 防止长文字溢出 */
+    flex-grow: 1;
+    min-width: 0;
 }
 
 .work-info h3 {
@@ -690,7 +554,7 @@ footer {
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* 文字太长用省略号 */
+    text-overflow: ellipsis;
 }
 
 .work-stats {
@@ -705,7 +569,7 @@ footer {
     color: #fff;
     font-weight: 600;
     font-size: 0.95rem;
-    font-variant-numeric: tabular-nums; /* 数字等宽对齐 */
+    font-variant-numeric: tabular-nums;
     transition: opacity 0.3s ease;
 }
 
@@ -725,7 +589,7 @@ footer {
 
 .work-card:hover .work-arrow {
     color: var(--accent);
-    transform: translate(2px, -2px); /* 悬停时箭头轻微移动 */
+    transform: translate(2px, -2px);
 }
 
 /* 手机端调整 */
@@ -755,7 +619,7 @@ footer {
     gap: 18px;
     padding: 20px 12px;
     border-radius: 40px;
-    background: rgba(10, 14, 26, 0.5);
+    background: rgba(5, 5, 8, 0.55);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--border);
@@ -788,14 +652,12 @@ footer {
     position: relative;
 }
 
-/* 悬停时圆点变大 */
 .side-link:hover .side-dot {
     background: var(--accent);
     box-shadow: 0 0 10px var(--accent);
     transform: scale(1.4);
 }
 
-/* 当前激活 */
 .side-link.active {
     color: var(--accent);
 }
@@ -806,7 +668,6 @@ footer {
     transform: scale(1.5);
 }
 
-/* 激活时圆点外扩环 */
 .side-link.active .side-dot::after {
     content: '';
     position: absolute;
@@ -822,7 +683,6 @@ footer {
     100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* 文字标签默认隐藏，悬停或激活时显示 */
 .side-label {
     opacity: 0;
     transform: translateX(-6px);
@@ -840,12 +700,11 @@ footer {
 .hero-greeting {
     font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     color: var(--text-dim);
-    letter-spacing: 0.4em;            /* 拉开字距，显得庄重 */
+    letter-spacing: 0.4em;
     margin-bottom: 8px;
-    opacity: 0.85;
     animation: greetingFade 1s ease forwards;
     animation-delay: 0.2s;
-    opacity: 0;                        /* 初始隐藏，动画淡入 */
+    opacity: 0;
 }
 
 @keyframes greetingFade {
@@ -959,12 +818,9 @@ footer {
     font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.04em;
-
-    /* 半透明背景 + 细边框，和背景星云融合 */
     background: rgba(88, 166, 255, 0.08);
     border: 1px solid rgba(88, 166, 255, 0.28);
     color: #b9d4ff;
-
     transition: all 0.25s ease;
     cursor: default;
     backdrop-filter: blur(4px);
@@ -981,25 +837,26 @@ footer {
         0 0 6px rgba(168, 85, 247, 0.3);
 }
 
-/* ---------- 标签 Tooltip ---------- */
-.hero-tag {
-    position: relative;   /* ★ 必须，让 ::after 以它为基准定位 */
+/* ---------- Tooltip（通用：悬停 或 .tooltip-visible） ---------- */
+.hero-tag,
+.game-tag,
+.about-card {
+    position: relative;
 }
 
-/* Tooltip 本体 */
-.hero-tag::after {
+.hero-tag::after,
+.game-tag::after,
+.about-card::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: calc(100% + 10px);   /* 显示在标签上方 */
+    bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%) translateY(4px);
-
-    min-width: 180px;
+    min-width: 140px;
     max-width: 260px;
     padding: 10px 14px;
     border-radius: 8px;
-
-    background: rgba(10, 14, 26, 0.96);
+    background: rgba(8, 9, 14, 0.96);
     border: 1px solid rgba(88, 166, 255, 0.4);
     color: #d0e2ff;
     font-size: 0.8rem;
@@ -1008,166 +865,52 @@ footer {
     letter-spacing: 0.02em;
     text-align: center;
     white-space: normal;
-
-    /* 阴影 + 发光 */
     box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.5),
         0 0 20px rgba(88, 166, 255, 0.25);
-
-    /* 初始隐藏 */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.25s ease;
     z-index: 100;
 }
 
-/* Tooltip 小三角 */
-.hero-tag::before {
-    content: '';
-    position: absolute;
-    bottom: calc(100% + 4px);
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid rgba(88, 166, 255, 0.4);
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 100;
-}
-
-/* 悬停时显示 */
-.hero-tag:hover::after,
-.hero-tag:hover::before {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* ---------- 游戏标签 Tooltip ---------- */
-.game-tag {
-    position: relative;   /* ★ 必须，给 ::after/::before 定位 */
-}
-
-.game-tag::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-
-    min-width: 120px;
-    max-width: 220px;
-    padding: 8px 12px;
-    border-radius: 8px;
-
-    background: rgba(10, 14, 26, 0.96);
-    border: 1px solid rgba(88, 166, 255, 0.4);
-    color: #d0e2ff;
-    font-size: 0.78rem;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    white-space: normal;
-
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(88, 166, 255, 0.25);
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 100;
-}
-
-/* 小三角 */
-.game-tag::before {
-    content: '';
-    position: absolute;
-    bottom: calc(100% + 4px);
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid rgba(88, 166, 255, 0.4);
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 100;
-}
-
-.game-tag:hover::after,
-.game-tag:hover::before {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* ---------- about-card Tooltip ---------- */
-.about-card {
-    position: relative;   /* ★ 必须，给 ::after/::before 定位 */
-}
-
-.about-card::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 12px);
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
-
-    min-width: 140px;
-    max-width: 220px;
-    padding: 10px 14px;
-    border-radius: 8px;
-
-    background: rgba(10, 14, 26, 0.96);
-    border: 1px solid rgba(88, 166, 255, 0.45);
-    color: #d0e2ff;
-    font-size: 0.8rem;
-    font-weight: 400;
-    line-height: 1.55;
-    text-align: center;
-    white-space: normal;
-
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.5),
-        0 0 22px rgba(88, 166, 255, 0.28);
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 100;
-}
-
-/* 小三角 */
+.hero-tag::before,
+.game-tag::before,
 .about-card::before {
     content: '';
     position: absolute;
-    bottom: calc(100% + 6px);
+    bottom: calc(100% + 4px);
     left: 50%;
-    transform: translateX(-50%) translateY(6px);
-
+    transform: translateX(-50%) translateY(4px);
     width: 0;
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid rgba(88, 166, 255, 0.45);
-
+    border-top: 6px solid rgba(88, 166, 255, 0.4);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.25s ease;
     z-index: 100;
 }
 
+/* 桌面：悬停显示 */
+.hero-tag:hover::after,
+.hero-tag:hover::before,
+.game-tag:hover::after,
+.game-tag:hover::before,
 .about-card:hover::after,
 .about-card:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 手机：JS 点按后加 .tooltip-visible */
+.hero-tag.tooltip-visible::after,
+.hero-tag.tooltip-visible::before,
+.game-tag.tooltip-visible::after,
+.game-tag.tooltip-visible::before,
+.about-card.tooltip-visible::after,
+.about-card.tooltip-visible::before {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
@@ -1182,8 +925,8 @@ footer {
     padding: 12px;
     border: 1px solid var(--border);
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.25);
-    overflow-x: auto;   /* 手机端横向滚动 */
+    background: var(--bg-panel);
+    overflow-x: auto;
 }
 
 .github-chart img {
@@ -1234,7 +977,7 @@ footer {
     align-items: center;
     gap: 12px;
     padding: 10px 16px;
-    background: #0d1117;
+    background: #0a0c12;
     text-decoration: none;
     color: inherit;
     transition: background 0.2s ease;
@@ -1242,7 +985,7 @@ footer {
 }
 
 .commit-item:hover {
-    background: #161b22;
+    background: #11141d;
     color: inherit;
 }
 
@@ -1290,10 +1033,9 @@ footer {
     text-align: center;
     color: var(--text-dim);
     font-size: 0.9rem;
-    background: #0d1117;
+    background: #0a0c12;
 }
 
-/* 手机端隐藏仓库名 */
 @media (max-width: 600px) {
     .commit-repo { display: none; }
     .commit-hash { font-size: 0.7rem; padding: 2px 6px; }
@@ -1314,13 +1056,13 @@ footer {
         gap: 14px;
         padding: 10px 18px;
         border-radius: 999px;
-        background: rgba(10, 14, 26, 0.85);
+        background: rgba(5, 5, 8, 0.85);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
     }
 
     .side-label {
-        display: none;      /* 手机端只显示圆点 */
+        display: none;
     }
 
     .side-dot {
@@ -1355,7 +1097,7 @@ footer {
     }
 
     .nav-text {
-        display: none;      /* 隐藏文字，保留图标 */
+        display: none;
     }
 
     .nav-icon {
@@ -1375,11 +1117,6 @@ footer {
 
     .pixel-title-wrap {
         padding: 0;
-    }
-
-    .gallifreyan-line {
-        font-size: 1rem;
-        gap: 14px;
     }
 
     .subtitle {
@@ -1407,7 +1144,7 @@ footer {
     }
 
     .about-grid {
-        grid-template-columns: repeat(2, 1fr);   /* 2 列 */
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 
@@ -1472,7 +1209,7 @@ footer {
     }
 
     .commit-repo {
-        display: none;      /* 手机端隐藏仓库名 */
+        display: none;
     }
 
     .commit-hash {
@@ -1501,6 +1238,9 @@ footer {
     footer {
         padding-bottom: 80px;
     }
+
+    /* 手机端降低背景视觉强度 */
+    #data-stream { opacity: 0.4; }
 }
 
 /* 超窄屏：更紧凑 */
@@ -1513,4 +1253,331 @@ footer {
         font-size: 0.68rem;
         padding: 4px 10px;
     }
+}
+
+/* ---------- 无障碍：尊重减少动效偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .scanline-sweep,
+    .name-origin::after {
+        animation: none;
+        opacity: 0;
+    }
+
+    .side-link.active .side-dot::after {
+        animation: none;
+    }
+
+    html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   危险模式（红橙警报）：body.alert-mode 期间全站换色
+   黑色背景不变，数据流由 JS 切换为红色调
+   ============================================================ */
+
+/* SVG 标题渐变的可控化：默认蓝紫，警报时红橙 */
+.pixel-title .grad-a { stop-color: #58a6ff; }
+.pixel-title .grad-b { stop-color: #a855f7; }
+
+body.alert-mode .pixel-title .grad-a { stop-color: #ff4d4d; }
+body.alert-mode .pixel-title .grad-b { stop-color: #ff9f43; }
+
+/* ---- 链接与文本强调 ---- */
+body.alert-mode a { color: #ff6b6b; }
+body.alert-mode a:hover { color: #ff8f8f; text-shadow: 0 0 8px rgba(255, 82, 82, 0.45); }
+
+body.alert-mode ::selection { background: rgba(255, 77, 77, 0.35); }
+
+/* ---- 顶部导航 ---- */
+body.alert-mode .nav-link:hover {
+    color: #ff6b6b;
+    background: rgba(255, 82, 82, 0.08);
+    border-color: rgba(255, 82, 82, 0.35);
+    text-shadow: 0 0 8px rgba(255, 82, 82, 0.45);
+}
+body.alert-mode .nav-icon { color: #ff5252; }
+
+/* ---- Section 标题 ---- */
+body.alert-mode .section h2::after {
+    background: linear-gradient(90deg, #ff4d4d, #ff9f43);
+    box-shadow: 0 0 10px rgba(255, 77, 77, 0.45);
+}
+
+/* ---- 标签（Hero / 游戏） ---- */
+body.alert-mode .hero-tag {
+    background: rgba(255, 82, 82, 0.08);
+    border-color: rgba(255, 82, 82, 0.32);
+    color: #ffc9c9;
+}
+body.alert-mode .hero-tag:hover {
+    background: rgba(255, 82, 82, 0.18);
+    border-color: rgba(255, 82, 82, 0.7);
+    box-shadow:
+        0 0 16px rgba(255, 77, 77, 0.4),
+        0 0 6px rgba(255, 159, 67, 0.3);
+}
+body.alert-mode .game-tag {
+    background: rgba(255, 82, 82, 0.08);
+    border-color: rgba(255, 82, 82, 0.32);
+    color: #ff8f8f;
+}
+body.alert-mode .game-tag:hover {
+    background: rgba(255, 82, 82, 0.2);
+    box-shadow: 0 0 12px rgba(255, 77, 77, 0.4);
+}
+
+/* ---- Tooltip ---- */
+body.alert-mode .hero-tag::after,
+body.alert-mode .game-tag::after,
+body.alert-mode .about-card::after {
+    border-color: rgba(255, 82, 82, 0.45);
+    color: #ffd6d6;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 77, 77, 0.28);
+}
+body.alert-mode .hero-tag::before,
+body.alert-mode .game-tag::before,
+body.alert-mode .about-card::before {
+    border-top-color: rgba(255, 82, 82, 0.45);
+}
+
+/* ---- 卡片 ---- */
+body.alert-mode .about-card:hover {
+    border-color: #ff5252;
+    background: rgba(255, 82, 82, 0.05);
+    box-shadow: 0 4px 16px rgba(255, 77, 77, 0.18);
+}
+body.alert-mode .join-card:hover {
+    border-color: #ff5252;
+    background: rgba(255, 82, 82, 0.05);
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+}
+body.alert-mode .project-card:hover {
+    border-color: #ff5252;
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+}
+body.alert-mode .join-icon,
+body.alert-mode .commit-icon { color: #ff5252; }
+
+body.alert-mode .github-cards img:hover {
+    border-color: #ff5252;
+    box-shadow: 0 0 16px rgba(255, 77, 77, 0.3);
+}
+
+/* ---- 名字来历 ---- */
+body.alert-mode .name-origin {
+    border-left-color: #ff4d4d;
+    background: linear-gradient(90deg,
+        rgba(255, 77, 77, 0.08) 0%,
+        rgba(255, 159, 67, 0.04) 60%,
+        transparent 100%);
+}
+body.alert-mode .name-origin:hover {
+    border-left-color: #ff9f43;
+    background: linear-gradient(90deg,
+        rgba(255, 77, 77, 0.12) 0%,
+        rgba(255, 159, 67, 0.08) 60%,
+        transparent 100%);
+}
+body.alert-mode .name-origin-quote b {
+    color: #ff6b6b;
+    text-shadow: 0 0 8px rgba(255, 82, 82, 0.45);
+}
+body.alert-mode .name-origin-note b {
+    background: linear-gradient(90deg, #ff4d4d, #ff9f43);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+body.alert-mode .quote-mark { color: #ff5252; }
+body.alert-mode .name-origin::after { color: #ff5252; }
+
+/* ---- 提交列表 ---- */
+body.alert-mode .commit-hash {
+    color: #ff6b6b;
+    border-color: rgba(255, 82, 82, 0.35);
+}
+body.alert-mode .commit-item:hover .commit-hash {
+    background: rgba(255, 82, 82, 0.15);
+    border-color: rgba(255, 82, 82, 0.65);
+}
+
+/* ---- 侧边导航 ---- */
+body.alert-mode .side-link:hover { color: #ff6b6b; }
+body.alert-mode .side-link:hover .side-dot {
+    background: #ff5252;
+    box-shadow: 0 0 10px #ff5252;
+}
+body.alert-mode .side-link.active { color: #ff6b6b; }
+body.alert-mode .side-link.active .side-dot {
+    background: #ff5252;
+    box-shadow: 0 0 12px #ff5252, 0 0 4px #ff5252;
+}
+body.alert-mode .side-link.active .side-dot::after {
+    border-color: #ff5252;
+}
+
+/* ---- 作品列表 ---- */
+body.alert-mode .work-card:hover .work-arrow { color: #ff5252; }
+
+/* ---- 扫描线同步变红橙 ---- */
+body.alert-mode .scanline-sweep-blue {
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(255, 77, 77, 0.05) 30%,
+        rgba(255, 77, 77, 0.2) 50%,
+        rgba(255, 77, 77, 0.05) 70%,
+        transparent 100%
+    );
+    box-shadow: 0 0 24px rgba(255, 77, 77, 0.2);
+}
+body.alert-mode .scanline-sweep-purple {
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(255, 159, 67, 0.05) 30%,
+        rgba(255, 159, 67, 0.2) 50%,
+        rgba(255, 159, 67, 0.05) 70%,
+        transparent 100%
+    );
+    box-shadow: 0 0 24px rgba(255, 159, 67, 0.2);
+}
+
+/* ---- 警报横幅 ---- */
+.alert-banner {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    z-index: 99;
+    text-align: center;
+    padding: 6px 16px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    color: #ffb3b3;
+    background: rgba(60, 8, 8, 0.78);
+    border-bottom: 1px solid rgba(255, 77, 77, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    pointer-events: none;
+}
+
+body.alert-mode .alert-banner {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    animation: alertBlink 1.2s ease-in-out infinite;
+}
+
+@keyframes alertBlink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.55; }
+}
+
+/* ---- 触发瞬间：整个画面闪烁一下 ---- */
+body.alert-flash {
+    animation: alertFlicker 0.6s steps(2, jump-none);
+}
+
+@keyframes alertFlicker {
+    0%   { opacity: 1; }
+    25%  { opacity: 0.72; }
+    50%  { opacity: 1; }
+    75%  { opacity: 0.85; }
+    100% { opacity: 1; }
+}
+
+/* ---- 手机端：横幅字号收一点 ---- */
+@media (max-width: 700px) {
+    .alert-banner {
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+    }
+}
+
+/* ---- 警报内容接管样式 ---- */
+body.alert-mode .hero-greeting {
+    color: #ff6b6b;
+    text-shadow: 0 0 14px rgba(255, 77, 77, 0.5);
+    letter-spacing: 0.3em;
+}
+
+body.alert-mode .subtitle {
+    color: #ffb3b3;
+    text-shadow: 0 0 10px rgba(255, 82, 82, 0.35);
+}
+
+/* 像素标题：警报期间每 5 秒眨一次 */
+body.alert-mode .pixel-title {
+    animation: titleBlink 5s steps(1, jump-none) infinite;
+}
+
+@keyframes titleBlink {
+    0%, 86%, 92%, 100% { opacity: 1; }
+    88%, 90%           { opacity: 0; }
+}
+
+/* 被腐蚀的文字（乱码块） */
+.alert-corrupt {
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #ff8f8f;
+    text-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+}
+
+/* 入侵警告文案 */
+.alert-intrusion {
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #ff6b6b;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 2;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.45);
+    padding: 18px 0;
+    animation: alertBlink 1.2s ease-in-out infinite;
+}
+
+/* 通讯终端风格接管块 */
+.alert-terminal {
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #ff8f8f;
+    background: rgba(60, 8, 8, 0.4);
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    border-radius: 8px;
+    padding: 18px 22px;
+    line-height: 2;
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
+}
+
+.alert-terminal .ok {
+    color: #ffb347;
+    text-shadow: 0 0 8px rgba(255, 159, 67, 0.5);
+}
+
+/* 减少动效：不闪烁、不呼吸 */
+@media (prefers-reduced-motion: reduce) {
+    body.alert-mode .alert-banner { animation: none; }
+    body.alert-flash { animation: none; }
+    body.alert-mode .pixel-title { animation: none; }
+    body.alert-mode .alert-intrusion { animation: none; }
+}
+
+/* ---- 作品卡：无图标资源时的字母占位 ---- */
+.work-icon-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-family: 'Bebas Neue', 'Consolas', sans-serif;
+    font-size: 2rem;
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--glow);
 }
