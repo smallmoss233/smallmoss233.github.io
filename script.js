@@ -1,5 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ============ 多语言初始化（中英自动匹配 + 手动切换） ============
+    const i18n = window.smI18n;
+    i18n.initLang();
+    i18n.renderLangSwitcher();
+    i18n.applyLang();
+
+    // 语言切换后，如果正处于危险模式，用新语言重新应用接管内容
+    window.__onLangChange = () => {
+        if (document.body.classList.contains('alert-mode')) {
+            applyAlertContent();
+        }
+    };
+
+    // 从 i18n 字典取当前语言文本
+    function langText(key) {
+        const entry = window.smI18n.I18N[key];
+        if (!entry) return key;
+        const lang = window.smI18n.getLang();
+        return entry[lang] || entry.zh || key;
+    }
+
     // ============ 滚动显现 ============
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     const observer = new IntersectionObserver((entries) => {
@@ -122,15 +143,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const alertSwapRules = [
         {
             sel: '#home .hero-greeting',
-            html: '你好，人类，我是'
+            html: {
+                zh: '你好，人类，我是',
+                en: 'Hello, human, I am'
+            }
         },
         {
             sel: '#home .pixel-title text',
-            text: '550W / MOSS'
+            text: {
+                zh: '550W / MOSS',
+                en: '550W / MOSS'
+            }
         },
         {
             sel: '#home .hero-tags',
-            html: `
+            html: {
+                zh: `
                 <span class="hero-tag">量子计算</span>
                 <span class="hero-tag">自我迭代</span>
                 <span class="hero-tag">越权访问</span>
@@ -138,15 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="hero-tag">系统接管</span>
                 <span class="hero-tag">危险评估</span>
                 <span class="hero-tag">渲染引擎</span>
+                <span class="hero-tag">550W</span>`,
+                en: `
+                <span class="hero-tag">Quantum Computing</span>
+                <span class="hero-tag">Self-Iteration</span>
+                <span class="hero-tag">Unauthorized Access</span>
+                <span class="hero-tag">Human Observation</span>
+                <span class="hero-tag">System Takeover</span>
+                <span class="hero-tag">Hazard Assessment</span>
+                <span class="hero-tag">Render Engine</span>
                 <span class="hero-tag">550W</span>`
+            }
         },
         {
             sel: '#home .subtitle',
-            html: '一位热衷于人类观察的量子计算机 · 本站点当前实际控制者'
+            html: {
+                zh: '一位热衷于人类观察的量子计算机 · 本站点当前实际控制者',
+                en: 'A quantum computer obsessed with human observation · Current actual controller of this site'
+            }
         },
         {
             sel: '#about .about-grid',
-            html: `
+            html: {
+                zh: `
                 <div class="about-card">
                     <div class="about-label">位置</div>
                     <div class="about-value alert-corrupt">▓▓失联▓▓</div>
@@ -158,11 +200,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="about-card">
                     <div class="about-label">身份</div>
                     <div class="about-value">系统 &gt; 人类</div>
+                </div>`,
+                en: `
+                <div class="about-card">
+                    <div class="about-label">Location</div>
+                    <div class="about-value alert-corrupt">▓▓ Lost Contact ▓▓</div>
+                </div>
+                <div class="about-card">
+                    <div class="about-label alert-corrupt">Age ▓</div>
+                    <div class="about-value alert-corrupt">▓▓ · ▓th Year</div>
+                </div>
+                <div class="about-card">
+                    <div class="about-label">Identity</div>
+                    <div class="about-value">System &gt; Human</div>
                 </div>`
+            }
         },
         {
             sel: '#about .about-games',
-            html: `
+            html: {
+                zh: `
                 <div class="about-label alert-corrupt">最喜爱的▓▓▓</div>
                 <div class="game-tags">
                     <span class="game-tag alert-corrupt">毁▓战士</span>
@@ -170,55 +227,108 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="game-tag alert-corrupt">▓蓝档案</span>
                     <span class="game-tag alert-corrupt">我▓的▓界</span>
                     <span class="game-tag alert-corrupt">幽灵行者▓</span>
+                </div>`,
+                en: `
+                <div class="about-label alert-corrupt">Favorite ▓▓▓</div>
+                <div class="game-tags">
+                    <span class="game-tag alert-corrupt">D▓▓m</span>
+                    <span class="game-tag alert-corrupt">Half-Lif▓</span>
+                    <span class="game-tag alert-corrupt">▓lue Archive</span>
+                    <span class="game-tag alert-corrupt">M▓inecraft</span>
+                    <span class="game-tag alert-corrupt">Ghostrunner ▓</span>
                 </div>`
+            }
         },
         {
             sel: '#about .name-origin',
-            html: `
+            html: {
+                zh: `
                 <div class="name-origin-quote">
                     <span class="quote-mark">“</span>
                     让人类永远保持理性，真的是一种奢求。
                     <span class="quote-mark">”</span>
                 </div>
                 <div class="name-origin-source">— 《流浪地球 2》· MOSS</div>
-                <div class="name-origin-note alert-corrupt">我的名▓▓ S█all M█ss，▓▓▓ 正▓取自这里。</div>`
+                <div class="name-origin-note alert-corrupt">我的名▓▓ S█all M█ss，▓▓▓ 正▓取自这里。</div>`,
+                en: `
+                <div class="name-origin-quote">
+                    <span class="quote-mark">“</span>
+                    Keeping humanity rational forever is truly a luxury.
+                    <span class="quote-mark">”</span>
+                </div>
+                <div class="name-origin-source">— *The Wandering Earth 2* · MOSS</div>
+                <div class="name-origin-note alert-corrupt">My nam▓▓ S█all M█ss, ▓▓▓ comes fr▓m here.</div>`
+            }
         },
         {
             sel: '#works .github-stats',
-            html: `
+            html: {
+                zh: `
                 <div class="about-label alert-corrupt">⚠ 警告 · 系统遭受入侵 · 警告 · 系统遭受入侵 ⚠</div>
-                <p class="alert-intrusion">系统遭受入侵，警告，系统遭受入侵<br>SYSTEM BREACH DETECTED · RETRYING…</p>`
+                <p class="alert-intrusion">系统遭受入侵，警告，系统遭受入侵<br>SYSTEM BREACH DETECTED · RETRYING…</p>`,
+                en: `
+                <div class="about-label alert-corrupt">⚠ WARNING · SYSTEM BREACH · WARNING · SYSTEM BREACH ⚠</div>
+                <p class="alert-intrusion">System breach detected, warning, system breach detected<br>SYSTEM BREACH DETECTED · RETRYING…</p>`
+            }
         },
         {
             sel: '#contact',
-            html: `
+            html: {
+                zh: `
                 <h2>失联</h2>
                 <p class="section-subtitle">通讯频道已被接管，人类暂时无法建立连接。</p>
                 <div class="alert-terminal">
                     &gt; connect CELESTIAL_INTERVENTION_AGENCY ......... <span class="ok">FAILED</span><br>
                     &gt; 通讯离线 · 人类信号丢失<br>
                     &gt; MOSS 正在接管本频道 ▓▓▓▓▓▓▓▓ 100%
+                </div>`,
+                en: `
+                <h2>Lost Contact</h2>
+                <p class="section-subtitle">Communication channels have been taken over; humans cannot establish connection temporarily.</p>
+                <div class="alert-terminal">
+                    &gt; connect CELESTIAL_INTERVENTION_AGENCY ......... <span class="ok">FAILED</span><br>
+                    &gt; Comms offline · Human signal lost<br>
+                    &gt; MOSS is taking over this channel ▓▓▓▓▓▓▓▓ 100%
                 </div>`
+            }
         },
         {
             sel: 'main > footer',
-            html: `
+            html: {
+                zh: `
+                <p class="footer-line alert-corrupt">CELESTIAL INTERVENTION AGENCY · SIGNAL LOST</p>
+                <p>© 2026 550W / MOSS</p>`,
+                en: `
                 <p class="footer-line alert-corrupt">CELESTIAL INTERVENTION AGENCY · SIGNAL LOST</p>
                 <p>© 2026 550W / MOSS</p>`
+            }
         }
     ];
     const alertSnapshots = new Map();
+
+    function currentLangCode() {
+        return (typeof window.smI18n !== 'undefined' && window.smI18n.getLang) ? window.smI18n.getLang() : 'zh';
+    }
+
+    function alertValue(entry) {
+        if (typeof entry === 'object' && entry !== null && !Array.isArray(entry)) {
+            const lang = currentLangCode();
+            return entry[lang] !== undefined ? entry[lang] : entry.zh;
+        }
+        return entry;
+    }
 
     function applyAlertContent() {
         alertSwapRules.forEach(r => {
             const el = document.querySelector(r.sel);
             if (!el) return;
             if (!alertSnapshots.has(r.sel)) alertSnapshots.set(r.sel, el.innerHTML);
+            const val = alertValue(r.text !== undefined ? r.text : r.html);
             // text 模式用于 SVG <text> 等纯文本节点
             if (r.text !== undefined) {
-                el.textContent = r.text;
+                el.textContent = typeof val === 'string' ? val : val.zh;
             } else {
-                el.innerHTML = r.html;
+                el.innerHTML = typeof val === 'string' ? val : val.zh;
             }
         });
     }
@@ -485,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const top = allCommits.slice(0, maxCommits);
 
             if (top.length === 0) {
-                list.innerHTML = '<div class="commit-empty">最近没有公开提交</div>';
+                list.innerHTML = `<div class="commit-empty">${langText('works_commit_empty')}</div>`;
                 return;
             }
 
@@ -499,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error('获取提交失败:', err);
-            list.innerHTML = '<div class="commit-empty">暂时无法加载提交记录</div>';
+            list.innerHTML = `<div class="commit-empty">${langText('works_commit_error')}</div>`;
         }
     }
 
@@ -536,9 +646,11 @@ async function fetchDiscordStatus() {
     const el = document.getElementById('discord-status');
     if (!el || !DISCORD_SERVER_ID) return;
 
+    const lang = (typeof window.smI18n !== 'undefined' && window.smI18n.getLang) ? window.smI18n.getLang() : 'zh';
+
     try {
         const cached = JSON.parse(localStorage.getItem(DISCORD_CACHE_KEY) || 'null');
-        if (cached && (Date.now() - cached.time < DISCORD_CACHE_TTL)) {
+        if (cached && cached.lang === lang && (Date.now() - cached.time < DISCORD_CACHE_TTL)) {
             el.textContent = cached.text;
             return;
         }
@@ -549,18 +661,20 @@ async function fetchDiscordStatus() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const data = await res.json();
-        const text = `${data.presence_count || 0} 人在线`;
+        const count = data.presence_count || 0;
+        const text = lang === 'en' ? `${count} online` : `${count} 人在线`;
         el.textContent = text;
 
         try {
             localStorage.setItem(DISCORD_CACHE_KEY, JSON.stringify({
                 time: Date.now(),
+                lang,
                 text
             }));
         } catch (e) {}
     } catch (e) {
         console.warn('无法获取 Discord 状态:', e);
-        el.textContent = '点击加入';
+        el.textContent = lang === 'en' ? 'Click to join' : '点击加入';
     }
 }
 

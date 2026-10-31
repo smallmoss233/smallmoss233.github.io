@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Small Moss|来自中国的科幻爱好者！</title>
+    <title data-i18n="title">Small Moss|来自中国的科幻爱好者！</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="assets/favicon.jpg">
+    <script src="i18n.js"></script>
 </head>
 <body>
 <!-- 背景层：纯黑 + 数据流 + 扫描线 -->
@@ -23,19 +24,19 @@
 <nav class="top-nav">
     <div class="nav-inner">
         <div class="nav-links">
-            <a href="https://github.com/smallmoss233" target="_blank" rel="noopener" class="nav-link">
+            <a href="https://github.com/smallmoss233" target="_blank" rel="noopener" class="nav-link" data-i18n="nav_github">
                 <span class="nav-icon">⌘</span>
                 <span class="nav-text">GitHub</span>
             </a>
-            <a href="https://space.bilibili.com/2100392650" target="_blank" rel="noopener" class="nav-link">
+            <a href="https://space.bilibili.com/2100392650" target="_blank" rel="noopener" class="nav-link" data-i18n="nav_bilibili">
                 <span class="nav-icon">▶</span>
                 <span class="nav-text">B站</span>
             </a>
-            <a href="https://modrinth.com/user/SmallMoss" target="_blank" rel="noopener" class="nav-link">
+            <a href="https://modrinth.com/user/SmallMoss" target="_blank" rel="noopener" class="nav-link" data-i18n="nav_modrinth">
                 <span class="nav-icon">◆</span>
                 <span class="nav-text">Modrinth</span>
             </a>
-            <a href="https://discord.gg/2pHFQwQ9Bm" target="_blank" rel="noopener" class="nav-link">
+            <a href="https://discord.gg/2pHFQwQ9Bm" target="_blank" rel="noopener" class="nav-link" data-i18n="nav_discord">
                 <span class="nav-icon">◆</span>
                 <span class="nav-text">Discord</span>
             </a>
@@ -45,19 +46,19 @@
 
 <!-- 左侧内容导航 -->
 <nav class="side-nav">
-    <a href="#home" class="side-link" data-target="home">
+    <a href="#home" class="side-link" data-target="home" data-i18n="side_home">
         <span class="side-dot"></span>
         <span class="side-label">首页</span>
     </a>
-    <a href="#about" class="side-link" data-target="about">
+    <a href="#about" class="side-link" data-target="about" data-i18n="side_about">
         <span class="side-dot"></span>
         <span class="side-label">关于</span>
     </a>
-    <a href="#works" class="side-link" data-target="works">
+    <a href="#works" class="side-link" data-target="works" data-i18n="side_works">
         <span class="side-dot"></span>
         <span class="side-label">作品</span>
     </a>
-    <a href="#contact" class="side-link" data-target="contact">
+    <a href="#contact" class="side-link" data-target="contact" data-i18n="side_contact">
         <span class="side-dot"></span>
         <span class="side-label">联系</span>
     </a>
@@ -68,7 +69,7 @@
     <!-- Hero -->
     <section class="hero" id="home">
         <div class="title-stack fade-in-up">
-            <p class="hero-greeting">你好，我是</p>
+            <p class="hero-greeting" data-i18n="hero_greeting">你好，我是</p>
 
             <div class="pixel-title-wrap">
                 <svg class="pixel-title" viewBox="0 0 1100 200"
@@ -110,65 +111,63 @@
             </div>
         </div>
 
-        <p class="subtitle fade-in-up">一位热衷于科幻作品的 Minecraft Mod 开发者 · 天体干预局组织的组长</p>
+        <p class="subtitle fade-in-up" data-i18n="hero_subtitle">一位热衷于科幻作品的 Minecraft Mod 开发者 · 天体干预局组织的组长</p>
 
         <div class="hero-tags fade-in-up">
-            <span class="hero-tag" data-tooltip="顺手学的">Java</span>
-            <span class="hero-tag" data-tooltip="为了 AIT 我来到了 Fabric，为了永恒的旅行我做了 DOCTOR M，现在我只会 Fabric 的开发…">Fabric</span>
-            <span class="hero-tag" data-tooltip="除了 Minecraft 的模组，别的我真的不会搞了">Minecraft Mod</span>
-            <span class="hero-tag" data-tooltip="这正是我现在热爱的">模组开发</span>
-            <span class="hero-tag" data-tooltip="讲个笑话，我的作品 DOCTOR M 起初是永恒的旅行的附属模组">整合包制作</span>
-            <span class="hero-tag" data-tooltip="我是个中国人，英语也不是很好，所以…懂吧？">汉化翻译</span>
-            <span class="hero-tag" data-tooltip="科幻爱好者，尤其是对《三体》《神秘博士》这样的科幻作品">科幻世界观</span>
-            <span class="hero-tag" data-tooltip="我知道有些人会歧视我这样的人，但请相信我，我的 QA 质量把关绝对在线！">AI 辅助开发</span>
+            <span class="hero-tag" data-i18n="hero_tag_java" data-i18n-tooltip="hero_tag_java">Java</span>
+            <span class="hero-tag" data-i18n="hero_tag_fabric" data-i18n-tooltip="hero_tag_fabric">Fabric</span>
+            <span class="hero-tag" data-i18n="hero_tag_mod" data-i18n-tooltip="hero_tag_mod">Minecraft Mod</span>
+            <span class="hero-tag" data-i18n="hero_tag_moddev" data-i18n-tooltip="hero_tag_moddev">模组开发</span>
+            <span class="hero-tag" data-i18n="hero_tag_pack" data-i18n-tooltip="hero_tag_pack">整合包制作</span>
+            <span class="hero-tag" data-i18n="hero_tag_translation" data-i18n-tooltip="hero_tag_translation">汉化翻译</span>
+            <span class="hero-tag" data-i18n="hero_tag_scifi" data-i18n-tooltip="hero_tag_scifi">科幻世界观</span>
+            <span class="hero-tag" data-i18n="hero_tag_ai" data-i18n-tooltip="hero_tag_ai">AI 辅助开发</span>
         </div>
     </section>
 
     <!-- 关于我 -->
     <section class="section reveal-on-scroll" id="about">
-        <h2>关于我</h2>
-        <p class="about-intro">
+        <h2 data-i18n="about_title">关于我</h2>
+        <p class="about-intro" data-i18n="about_intro">
             来自中国，一名 17 岁的高三学生，热衷于科幻作品与经典 FPS 游戏。在作为一名玩家的基础上，才是一位比较业余的模组开发者和整合包作者，以及汉化者。目前，作品有基于《神秘博士》为主题的 DOCTOR M 系列、以《幽灵行者》为主题的 Ghostrunner 模组，以及「永恒的旅行」系列整合包。
         </p>
 
         <div class="about-grid">
-            <div class="about-card" data-tooltip="详细地址？我是个广西人，不能再细说了！" title="详细地址？我是个广西人，不能再细说了！">
-                <div class="about-label">位置</div>
-                <div class="about-value">🇨🇳 中国</div>
+            <div class="about-card" data-i18n-tooltip="about_tooltip_location">
+                <div class="about-label" data-i18n="about_label_location">位置</div>
+                <div class="about-value" data-i18n="about_value_location">🇨🇳 中国</div>
             </div>
-            <div class="about-card" data-tooltip="是的，我还在读书 :P" title="是的，我还在读书 :P">
-                <div class="about-label">年龄</div>
-                <div class="about-value">17 岁 · 高三</div>
+            <div class="about-card" data-i18n-tooltip="about_tooltip_age">
+                <div class="about-label" data-i18n="about_label_age">年龄</div>
+                <div class="about-value" data-i18n="about_value_age">17 岁 · 高三</div>
             </div>
-            <div class="about-card" data-tooltip="从玩东西的，到给别人做东西玩的" title="从玩东西的，到给别人做东西玩的">
-                <div class="about-label">身份</div>
-                <div class="about-value">玩家 &gt; 开发者</div>
+            <div class="about-card" data-i18n-tooltip="about_tooltip_identity">
+                <div class="about-label" data-i18n="about_label_identity">身份</div>
+                <div class="about-value" data-i18n="about_value_identity">玩家 &gt; 开发者</div>
             </div>
         </div>
 
         <div class="about-games">
-            <div class="about-label">最喜欢的游戏</div>
+            <div class="about-label" data-i18n="about_label_games">最喜欢的游戏</div>
             <div class="game-tags">
-                <span class="game-tag" data-tooltip="因他终将与我们同行" title="因他终将与我们同行">毁灭战士</span>
-                <span class="game-tag" data-tooltip="我就要去莱温霍姆" title="我就要去莱温霍姆">半条命</span>
-                <span class="game-tag" data-tooltip="九蓝一金" title="九蓝一金">蔚蓝档案</span>
-                <span class="game-tag" data-tooltip="MC 是个游戏引擎（bushi）" title="MC 是个游戏引擎（bushi）">我的世界</span>
-                <span class="game-tag" data-tooltip="我即是刀锋" title="我即是刀锋">幽灵行者2</span>
+                <span class="game-tag" data-i18n="about_game_doom" data-i18n-tooltip="about_game_doom">毁灭战士</span>
+                <span class="game-tag" data-i18n="about_game_hl" data-i18n-tooltip="about_game_hl">半条命</span>
+                <span class="game-tag" data-i18n="about_game_blue_archive" data-i18n-tooltip="about_game_blue_archive">蔚蓝档案</span>
+                <span class="game-tag" data-i18n="about_game_minecraft" data-i18n-tooltip="about_game_minecraft">我的世界</span>
+                <span class="game-tag" data-i18n="about_game_ghostrunner" data-i18n-tooltip="about_game_ghostrunner">幽灵行者2</span>
             </div>
         </div>
 
         <div class="name-origin">
-            <div class="name-origin-quote">
+            <div class="name-origin-quote" data-i18n-html="name_origin_quote">
                 <span class="quote-mark">“</span>
                 550W 听起来不像是一个名字，<br>
                 但是把它反过来，叫 MOSS，<br>
                 中文直译名为<b>小苔藓</b>，听起来是不是可爱多了？
                 <span class="quote-mark">”</span>
             </div>
-            <div class="name-origin-source">
-                — 《流浪地球 2》· 550W / MOSS
-            </div>
-            <div class="name-origin-note">
+            <div class="name-origin-source" data-i18n="name_origin_source">— 《流浪地球 2》· 550W / MOSS</div>
+            <div class="name-origin-note" data-i18n="name_origin_note">
                 我的名字 <b>Small Moss</b>，正是取自这里。
             </div>
         </div>
@@ -176,8 +175,8 @@
 
     <!-- 作品 -->
     <section class="section reveal-on-scroll" id="works">
-        <h2>我的作品</h2>
-        <p class="section-subtitle">我的作品都是免费发布的，如果遇到付费二次分发，请联系我。</p>
+        <h2 data-i18n="works_title">我的作品</h2>
+        <p class="section-subtitle" data-i18n="works_subtitle">我的作品都是免费发布的，如果遇到付费二次分发，请联系我。</p>
 
         <div class="works-list">
             <a href="https://modrinth.com/mod/doctorm" class="work-card" target="_blank" rel="noopener">
@@ -185,12 +184,12 @@
                     <img src="assets/icons/doctor_m.png" alt="DOCTOR M">
                 </div>
                 <div class="work-info">
-                    <h3>DOCTOR M</h3>
-                    <p>AIT扩展模组，让AIT变得更好更棒！</p>
+                    <h3 data-i18n="work_doctorm_name">DOCTOR M</h3>
+                    <p data-i18n="work_doctorm_desc">AIT扩展模组，让AIT变得更好更棒！</p>
                 </div>
                 <div class="work-stats">
                     <span class="stat-downloads" data-modrinth-project="doctorm">--</span>
-                    <span class="stat-label">下载</span>
+                    <span class="stat-label" data-i18n="work_doctorm_stats_label">下载</span>
                 </div>
                 <div class="work-arrow">↗</div>
             </a>
@@ -200,12 +199,12 @@
                     <img src="assets/icons/eternal_travel.png" alt="永恒的旅行">
                 </div>
                 <div class="work-info">
-                    <h3>永恒的旅行</h3>
-                    <p>《神秘博士》主题的整合包系列</p>
+                    <h3 data-i18n="work_eternal_name">永恒的旅行</h3>
+                    <p data-i18n="work_eternal_desc">《神秘博士》主题的整合包系列</p>
                 </div>
                 <div class="work-stats">
                     <span class="stat-downloads">--</span>
-                    <span class="stat-label">暂无下载</span>
+                    <span class="stat-label" data-i18n="work_eternal_stats_label">暂无下载</span>
                 </div>
                 <div class="work-arrow">↗</div>
             </a>
@@ -215,12 +214,12 @@
                     <img src="assets/icons/doctor_m.png" alt="DOCTOR M 3">
                 </div>
                 <div class="work-info">
-                    <h3>DOCTOR M 3</h3>
-                    <p>DOCTOR M 3.0，新一代《神秘博士》模组。</p>
+                    <h3 data-i18n="work_doctorm3_name">DOCTOR M 3</h3>
+                    <p data-i18n="work_doctorm3_desc">DOCTOR M 3.0，新一代《神秘博士》模组。</p>
                 </div>
                 <div class="work-stats">
                     <span class="stat-downloads">--</span>
-                    <span class="stat-label">暂无下载</span>
+                    <span class="stat-label" data-i18n="work_doctorm3_stats_label">暂无下载</span>
                 </div>
                 <div class="work-arrow">↗</div>
             </a>
@@ -230,12 +229,12 @@
                     <span class="work-icon-letter">G</span>
                 </div>
                 <div class="work-info">
-                    <h3>Ghostrunner</h3>
-                    <p>以《幽灵行者》为主题的模组，快、狠、准。</p>
+                    <h3 data-i18n="work_ghostrunner_name">Ghostrunner</h3>
+                    <p data-i18n="work_ghostrunner_desc">以《幽灵行者》为主题的模组，快、狠、准。</p>
                 </div>
                 <div class="work-stats">
                     <span class="stat-downloads">--</span>
-                    <span class="stat-label">暂无下载</span>
+                    <span class="stat-label" data-i18n="work_ghostrunner_stats_label">暂无下载</span>
                 </div>
                 <div class="work-arrow">↗</div>
             </a>
@@ -243,11 +242,11 @@
 
         <!-- GitHub 活跃度 -->
         <div class="github-stats">
-            <div class="about-label">GitHub 活跃度</div>
+            <div class="about-label" data-i18n="works_github_stats">GitHub 活跃度</div>
 
             <div class="github-chart">
                 <img src="https://ghchart.rshah.org/58a6ff/smallmoss233"
-                     alt="Small Moss 的 GitHub 贡献图"
+                     alt="" data-i18n="works_github_chart_alt"
                      loading="lazy">
             </div>
 
@@ -258,48 +257,48 @@
 
         <!-- 最近提交 -->
         <div class="recent-commits">
-            <div class="about-label">最近提交</div>
+            <div class="about-label" data-i18n="works_recent_commits">最近提交</div>
             <div id="commit-list" class="commit-list">
-                <div class="commit-loading">加载中…</div>
+                <div class="commit-loading" data-i18n="works_commit_loading">加载中…</div>
             </div>
         </div>
     </section>
 
     <!-- 联系 -->
     <section class="section reveal-on-scroll" id="contact">
-        <h2>联系</h2>
-        <p class="section-subtitle">通过以下渠道找到我，或者加入天体干预局。</p>
+        <h2 data-i18n="contact_title">联系</h2>
+        <p class="section-subtitle" data-i18n="contact_subtitle">通过以下渠道找到我，或者加入天体干预局。</p>
 
         <div class="join-links">
             <a href="https://github.com/smallmoss233" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">⌘</div>
-                <div class="join-title">GitHub</div>
-                <div class="join-desc">@smallmoss233</div>
+                <div class="join-title" data-i18n="contact_github_title">GitHub</div>
+                <div class="join-desc" data-i18n="contact_github_desc">@smallmoss233</div>
             </a>
 
             <a href="https://space.bilibili.com/2100392650" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">▶</div>
-                <div class="join-title">Bilibili</div>
-                <div class="join-desc">@SmallMoss</div>
+                <div class="join-title" data-i18n="contact_bilibili_title">Bilibili</div>
+                <div class="join-desc" data-i18n="contact_bilibili_desc">@SmallMoss</div>
             </a>
 
             <a href="https://qm.qq.com/q/D7UNoQecVM" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">◈</div>
-                <div class="join-title">QQ 群</div>
-                <div class="join-desc">群号：654700630</div>
+                <div class="join-title" data-i18n="contact_qq_title">QQ 群</div>
+                <div class="join-desc" data-i18n="contact_qq_desc">群号：654700630</div>
             </a>
 
             <a href="https://discord.gg/2pHFQwQ9Bm" class="join-card" target="_blank" rel="noopener">
                 <div class="join-icon">◆</div>
-                <div class="join-title">Discord</div>
-                <div class="join-desc" id="discord-status">加载中…</div>
+                <div class="join-title" data-i18n="contact_discord_title">Discord</div>
+                <div class="join-desc" id="discord-status" data-i18n="contact_discord_loading">加载中…</div>
             </a>
         </div>
     </section>
 
     <footer class="reveal-on-scroll">
-        <p class="footer-line">CELESTIAL INTERVENTION AGENCY</p>
-        <p>© 2026 Small Moss</p>
+        <p class="footer-line" data-i18n="footer_agency">CELESTIAL INTERVENTION AGENCY</p>
+        <p data-i18n="footer_copyright">© 2026 Small Moss</p>
     </footer>
 
 </main>

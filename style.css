@@ -88,6 +88,53 @@ body {
 
 .nav-link-disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
 
+/* ---------- 右上角语言切换按钮 ---------- */
+#lang-switcher .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: rgba(12, 14, 22, 0.55);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#lang-switcher .lang-btn:hover {
+    border-color: rgba(88, 166, 255, 0.3);
+    color: var(--accent);
+    background: rgba(88, 166, 255, 0.08);
+}
+
+#lang-switcher .lang-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(88, 166, 255, 0.15);
+    box-shadow: 0 0 10px var(--glow);
+}
+
+body.alert-mode #lang-switcher .lang-btn {
+    border-color: rgba(255, 82, 82, 0.35);
+    color: #ffc9c9;
+}
+
+body.alert-mode #lang-switcher .lang-btn:hover {
+    border-color: rgba(255, 82, 82, 0.7);
+    color: #ff6b6b;
+    background: rgba(255, 82, 82, 0.08);
+}
+
+body.alert-mode #lang-switcher .lang-btn.active {
+    border-color: #ff5252;
+    color: #ff5252;
+    background: rgba(255, 82, 82, 0.15);
+    box-shadow: 0 0 10px rgba(255, 82, 82, 0.3);
+}
+
 /* ---------- 背景层：数据流画布 + 扫描线 ---------- */
 .background-layer {
     position: fixed;
