@@ -164,7 +164,14 @@ function applyLang() {
     const key = el.getAttribute('data-i18n');
     const entry = I18N[key];
     if (!entry) return;
-    el.textContent = entry[code];
+    // 结构化导航项（icon + text 子节点）：只更新文本子节点，
+    // 避免整块 textContent 赋值把 <span> 结构抹掉（图标消失 / 手机端 nav-text 藏不住）
+    const textTarget = el.querySelector(':scope > .nav-text, :scope > .side-label');
+    if (textTarget) {
+      textTarget.textContent = entry[code];
+    } else {
+      el.textContent = entry[code];
+    }
     // 如果有 data-i18n-tooltip，一并翻译提示
     const tipKey = el.getAttribute('data-i18n-tooltip');
     if (tipKey && I18N[tipKey]) {
